@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterBot", "TwitterBot.csproj", "{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Debug|iPhone.Build.0 = Debug|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhone.ActiveCfg = Release|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhone.Build.0 = Release|iPhone
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = TwitterBot.csproj
+	EndGlobalSection
+EndGlobal
