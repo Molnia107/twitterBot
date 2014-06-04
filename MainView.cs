@@ -8,6 +8,13 @@ namespace TwitterBot
 		public MainView ()
 		{
 			BackgroundColor = UIColor.Blue;
+
+		}
+
+		public override void LayoutSubviews ()
+		{
+			base.LayoutSubviews ();
+
 		}
 	}
 }
