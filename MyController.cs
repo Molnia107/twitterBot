@@ -17,13 +17,14 @@ namespace TwitterBot
 			View = new MainView ();
 		}
 
+		ShyBot bot;
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
 
-			ShyBot bot = new ShyBot ();
+			bot = new ShyBot ();
 			bot.Authontificate (ViewAuth);
 
 
@@ -49,6 +50,10 @@ namespace TwitterBot
 
 		bool ShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
 		{
+			if (request.Url.Host == "www.yandex.ru") 
+			{
+				bot.Authorize (request.Url.Query);
+			}
 			return true;
 		}
 	}

@@ -109,6 +109,7 @@
     <Compile Include="ShyBot.cs" />
     <Compile Include="AuthInfo.cs" />
     <Compile Include="TwitterCommunicator.cs" />
+    <Compile Include="AuthParser.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

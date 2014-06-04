@@ -6,11 +6,14 @@ namespace TwitterBot
 {
 	public class TwitterCommunicator
 	{
-		AuthInfo authInfo = new AuthInfo ();
+		AuthInfo _authInfo;
+		AuthParser _authParser;
 
 		public TwitterCommunicator ()
 		{
-			Authenticate ();
+			_authInfo = new AuthInfo ();
+			_authParser = new AuthParser (_authInfo);
+
 		}
 
 
@@ -18,52 +21,60 @@ namespace TwitterBot
 		{
 
 			//get request_token
-			var client = new RestClient(authInfo.AuthUrl);
-			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForRequestToken (authInfo.ConsumerKey, authInfo.ConsumerSecret, authInfo.CallbackUrl);
-			var request = new RestRequest(authInfo.AuthRequestTokenUrl, Method.POST);
+			var client = new RestClient(_authInfo.AuthUrl);
+			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForRequestToken (_authInfo.ConsumerKey, _authInfo.ConsumerSecret, _authInfo.CallbackUrl);
+			var request = new RestRequest(_authInfo.AuthRequestTokenUrl, Method.POST);
 
 			var response =  client.Execute (request).Content;
-			ReadAuthenticationResponse (response);
-
-			return "https://api.twitter.com/oauth/authenticate?oauth_token=" + authInfo.OauthToken;
-		}
-
-		public void Authorize()
-		{
-			var client = new RestClient(authInfo.AuthUrl);
-			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForAccessToken (authInfo.ConsumerKey, authInfo.ConsumerSecret, authInfo.OauthToken, authInfo.OauthTokenSecret);
-			//client.Timeout = 150000;
-			var request = new RestRequest (authInfo.AuthAccessTokenUrl, Method.POST);
-			//client.Authenticator.Authenticate (client, request);
-			var response =  client.Execute (request).Content;
-
-
-		}
-
-		void ReadAuthenticationResponse(string response)
-		{
-
-			if (response != null && response.Contains("oauth_callback_confirmed=true")) 
+			if (response.Contains ("oauth_token")) 
 			{
-				var mass = response.Split ('&');
-				foreach (string value in mass) 
-				{
-					var valueMass = value.Split ('=');
-					if (valueMass.Length == 2) 
-					{
-						switch (valueMass [0]) 
-						{
-						case ("oauth_token"):
-							authInfo.OauthToken = valueMass [1];
-							break;
-						case ("oauth_token_secret"):
-							authInfo.OauthTokenSecret = valueMass [1];
-							break;
-						}
-					}
-				}
+				_authParser.ParseResponse (response);
+				return "https://api.twitter.com/oauth/authenticate?oauth_token=" + _authInfo.OauthToken;
 			}
+			return null;
+		
 		}
+
+		public bool Authorize(string query)
+		{
+			//authorize user
+			if (query.Contains ("oauth_verifier")) {
+				_authParser.ParseResponse (query);
+
+				var client = new RestClient (_authInfo.AuthUrl);
+				client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForAccessToken (_authInfo.ConsumerKey, _authInfo.ConsumerSecret, _authInfo.OauthToken, 
+					_authInfo.OauthTokenSecret, _authInfo.OauthVerifier);
+				var request = new RestRequest (_authInfo.AuthAccessTokenUrl, Method.POST);
+
+				IRestResponse iRestResponse = client.Execute (request);
+				var response = iRestResponse.Content;
+
+				if (response.Contains ("auth_token")) 
+				{
+					_authParser.ParseResponse (response);
+					GetData ();
+
+					return true;
+				}
+			} 
+			//msg
+			return false;
+		}
+
+		public void GetData()
+		{
+			//get data
+			var client = new RestClient(_authInfo.AuthUrl);
+			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForProtectedResource(_authInfo.ConsumerKey, _authInfo.ConsumerSecret, _authInfo.OauthToken, _authInfo.OauthTokenSecret);
+			var request = new RestRequest("1.1/search/tweets.json?q=putin", Method.GET);
+
+			var response =  client.Execute (request).Content;
+
+		}
+
+
+
+
 	}
 }
 
