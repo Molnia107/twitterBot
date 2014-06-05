@@ -1,6 +1,6 @@
 ﻿using System;
 using RestSharp;
-
+using RestSharp.Deserializers;
 
 namespace TwitterBot
 {
@@ -66,10 +66,12 @@ namespace TwitterBot
 			//get data
 			var client = new RestClient(_authInfo.AuthUrl);
 			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForProtectedResource(_authInfo.ConsumerKey, _authInfo.ConsumerSecret, _authInfo.OauthToken, _authInfo.OauthTokenSecret);
-			var request = new RestRequest("1.1/search/tweets.json?q=putin", Method.GET);
+			var request = new RestRequest("1.1/search/tweets.json", Method.GET);
+			request.AddParameter ("q", "putin");
 
-			var response =  client.Execute (request).Content;
-
+			var response =  client.Execute (request);
+			JsonDeserializer desefializer = new JsonDeserializer ();
+			RootObject obj = desefializer.Deserialize<RootObject> (response);
 		}
 
 

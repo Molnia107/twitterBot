@@ -110,6 +110,7 @@
     <Compile Include="AuthInfo.cs" />
     <Compile Include="TwitterCommunicator.cs" />
     <Compile Include="AuthParser.cs" />
+    <Compile Include="TwitterJsonClasses.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

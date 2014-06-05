@@ -23,7 +23,6 @@ namespace TwitterBot
 		{
 			base.ViewDidLoad ();
 
-
 			bot = new ShyBot ();
 			bot.Authontificate (ViewAuth);
 
