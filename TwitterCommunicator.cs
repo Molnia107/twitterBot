@@ -62,20 +62,23 @@ namespace TwitterBot
 			return false;
 		}
 
-		public List<Twitt> GetTwittsByTag(string tag)
+		public List<Twitt> GetTwittsByTag(string tag, Twitt lastTwitt = null)
 		{
 			//get data
 			var client = new RestClient(_authInfo.AuthUrl);
 			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForProtectedResource(_authInfo.ConsumerKey, _authInfo.ConsumerSecret, _authInfo.OauthToken, _authInfo.OauthTokenSecret);
 			var request = new RestRequest("1.1/search/tweets.json", Method.GET);
 			request.AddParameter ("q", tag);
+			if (lastTwitt != null) 
+			{
+				request.AddParameter ("max_id", lastTwitt.id_str);
+			}
 
 			var response =  client.Execute (request);
 			JsonDeserializer deserializer = new JsonDeserializer ();
 			RootObject obj = deserializer.Deserialize<RootObject> (response);
 			return obj.statuses;
 		}
-
 
 
 

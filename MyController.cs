@@ -1,6 +1,8 @@
 ﻿using System;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TwitterBot
 {
@@ -8,6 +10,7 @@ namespace TwitterBot
 	{
 		string _tag;
 		MainView _view;
+		List<Twitt> _twittList;
 
 		public MyController (string tag)
 		{
@@ -46,6 +49,12 @@ namespace TwitterBot
 
 		}
 
+		[Export("sender:event:")]
+		private void OnClick(NSObject sender, UIEvent ev)
+		{
+			int i = 25;
+
+		}
 
 		private void ContinueAuthorization(string query)
 		{
@@ -60,9 +69,18 @@ namespace TwitterBot
 		void GetTwitts()
 		{
 
-			var twitts = ShyBot.GetTwitts (_tag);
-			_view.DisplayTwitts (twitts);
+			_twittList = ShyBot.GetTwitts (_tag);
+			_view.DisplayTwitts (_twittList, GetMoreTwitts);
 
+		}
+
+		public List<Twitt> GetMoreTwitts()
+		{
+			var newTwitts = ShyBot.GetMoreTwitts (_tag,_twittList );
+			if(newTwitts.Count > 0)
+				newTwitts.RemoveAt (0);
+			_twittList = _twittList.Concat (newTwitts).ToList();
+			return newTwitts;
 		}
 	}
 }

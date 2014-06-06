@@ -1,12 +1,15 @@
 ﻿using System;
 using MonoTouch.UIKit;
 using System.Collections.Generic;
-
+using System.Linq;
+using MonoTouch.Foundation;
+using MonoTouch.ObjCRuntime;
 
 namespace TwitterBot
 {
 	public class TableSource : UITableViewSource
 	{
+		public event Action cl;
 		List<Twitt> tableItems;
 		protected string cellIdentifier = "TableCell";
 		public TableSource ()
@@ -37,6 +40,15 @@ namespace TwitterBot
 
 		}
 
+		public void AddNewTwittsToSource(List<Twitt> twitts)
+		{
+			tableItems = tableItems.Concat (twitts).ToList ();
+
+		}
+
+
+
+//		
 	}
 }
 

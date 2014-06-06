@@ -106,6 +106,8 @@
     <BundleResource Include="Resources\icon_dribbble.png" />
     <BundleResource Include="Resources\icon_github.png" />
     <BundleResource Include="Resources\icon_twitter.png" />
+    <BundleResource Include="Resources\button_pressed.png" />
+    <BundleResource Include="Resources\button.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
