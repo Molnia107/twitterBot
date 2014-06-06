@@ -15,15 +15,20 @@ namespace TwitterBot
 		}
 		public override int RowsInSection (UITableView tableview, int section)
 		{
+
 			return tableItems.Count;
 		}
 		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 		{
+			if (indexPath.Row > 11) {
+			}
 			// request a recycled cell to save memory
 			UITableViewCell cell = tableView.DequeueReusableCell (cellIdentifier);
+
 			// if there are no cells to reuse, create a new one
 			if (cell == null)
-				cell = new TwittTableCell (UITableViewCellStyle.Subtitle, cellIdentifier,tableItems [indexPath.Row]);
+				cell = new TwittTableCell (UITableViewCellStyle.Subtitle, cellIdentifier);
+			(cell as TwittTableCell).SetTwitt (tableItems[indexPath.Row]);
 			return cell;
 		}
 		public void SetSource(List<Twitt> twitts)

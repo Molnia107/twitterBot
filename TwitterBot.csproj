@@ -102,6 +102,10 @@
     <BundleResource Include="Resources\Icon.png" />
     <BundleResource Include="Resources\Icon%402x.png" />
     <BundleResource Include="Resources\avatar.png" />
+    <BundleResource Include="Resources\icon_apple.png" />
+    <BundleResource Include="Resources\icon_dribbble.png" />
+    <BundleResource Include="Resources\icon_github.png" />
+    <BundleResource Include="Resources\icon_twitter.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -119,6 +123,7 @@
     <Compile Include="TwitterJsonClasses.cs" />
     <Compile Include="TableSource.cs" />
     <Compile Include="TwittTableCell.cs" />
+    <Compile Include="TwittTabController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

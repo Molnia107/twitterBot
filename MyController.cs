@@ -39,35 +39,18 @@ namespace TwitterBot
 
 		}
 
-
 		public void ViewAuth( string authUrl)
 		{
 			//authorize user
-			UIWebView webView = new UIWebView ();
-
-			webView.ShouldStartLoad += ShouldStartLoad;
-
-			webView.Frame = UIScreen.MainScreen.Bounds;
-
-			View.AddSubview (webView);
-
-			webView.LoadRequest(new NSUrlRequest(new NSUrl(authUrl)));
+			_view.DisplayAuthWebView (authUrl, ContinueAuthorization);
 
 		}
 
-		bool ShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
-		{
-			if (request.Url.Host == "www.yandex.ru") 
-			{
-				ContinueAuthorization (request.Url.Query, webView);
-			}
-			return true;
-		}
 
-		private void ContinueAuthorization(string query, UIWebView webView)
+		private void ContinueAuthorization(string query)
 		{
 			ShyBot.Authorize (query);
-			webView.RemoveFromSuperview ();
+			_view.FinishAuthorization ();
 
 			GetTwitts ();
 

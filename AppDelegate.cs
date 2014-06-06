@@ -16,11 +16,8 @@ namespace TwitterBot
 		{
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
-			UITabBarController tabBarController = new UITabBarController ();
-			tabBarController.AddChildViewController (new MyController ("Twitter"));
-			tabBarController.AddChildViewController (new MyController ("Dribbble"));
-			tabBarController.AddChildViewController (new MyController ("Apple"));
-			tabBarController.AddChildViewController (new MyController ("GitHub"));
+
+			UITabBarController tabBarController = new TwittTabController ();
 
 			_rootControler = tabBarController;
 			window.RootViewController = _rootControler;

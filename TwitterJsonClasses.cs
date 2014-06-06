@@ -307,6 +307,7 @@ namespace TwitterBot
 		public User user { get; set; }
 		public string text { get; set; }
 		public string created_at { get; set; }
+		public string id_str { get; set; }
 		/*
 		public Metadata metadata { get; set; }
 
