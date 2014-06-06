@@ -1,6 +1,7 @@
 ﻿using System;
 using RestSharp;
 using RestSharp.Deserializers;
+using System.Collections.Generic;
 
 namespace TwitterBot
 {
@@ -52,7 +53,7 @@ namespace TwitterBot
 				if (response.Contains ("auth_token")) 
 				{
 					_authParser.ParseResponse (response);
-					GetData ();
+					//GetTwittsByTag ("putin");
 
 					return true;
 				}
@@ -61,17 +62,18 @@ namespace TwitterBot
 			return false;
 		}
 
-		public void GetData()
+		public List<Twitt> GetTwittsByTag(string tag)
 		{
 			//get data
 			var client = new RestClient(_authInfo.AuthUrl);
 			client.Authenticator = RestSharp.Authenticators.OAuth1Authenticator.ForProtectedResource(_authInfo.ConsumerKey, _authInfo.ConsumerSecret, _authInfo.OauthToken, _authInfo.OauthTokenSecret);
 			var request = new RestRequest("1.1/search/tweets.json", Method.GET);
-			request.AddParameter ("q", "putin");
+			request.AddParameter ("q", tag);
 
 			var response =  client.Execute (request);
-			JsonDeserializer desefializer = new JsonDeserializer ();
-			RootObject obj = desefializer.Deserialize<RootObject> (response);
+			JsonDeserializer deserializer = new JsonDeserializer ();
+			RootObject obj = deserializer.Deserialize<RootObject> (response);
+			return obj.statuses;
 		}
 
 

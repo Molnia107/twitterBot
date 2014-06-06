@@ -1,6 +1,6 @@
 ﻿using System;
 using MonoTouch.UIKit;
-
+using System.Collections.Generic;
 
 
 namespace TwitterBot
@@ -32,7 +32,16 @@ namespace TwitterBot
 
 		}
 
-
+		public List<Twitt> GetTwitts(string tag)
+		{
+			if (IsAuthorized) 
+			{
+				return communicator.GetTwittsByTag (tag);
+			} else 
+			{
+				return new List<Twitt> ();
+			}
+		}
 
 	}
 }

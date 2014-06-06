@@ -29,14 +29,13 @@ namespace TwitterBot
 
 		}
 
+
+
 		public void ViewAuth( string authUrl)
 		{
 			//authorize user
 			UIWebView webView = new UIWebView ();
-			webView.LoadFinished += delegate 
-			{
-				var url = webView.Request.Url.AbsoluteString;
-			};
+
 			webView.ShouldStartLoad += ShouldStartLoad;
 
 			webView.Frame = UIScreen.MainScreen.Bounds;
@@ -51,9 +50,21 @@ namespace TwitterBot
 		{
 			if (request.Url.Host == "www.yandex.ru") 
 			{
-				bot.Authorize (request.Url.Query);
+				ContinueAuthorization (request.Url.Query, webView);
 			}
 			return true;
+		}
+
+		private void ContinueAuthorization(string query, UIWebView webView)
+		{
+			bot.Authorize (query);
+			webView.RemoveFromSuperview ();
+
+			UITableView tableView = new UITableView (View.Bounds);
+			var twitts = bot.GetTwitts ("cute");
+			tableView.Source = new TableSource (twitts);
+			View.AddSubview (tableView);
+			//else msg
 		}
 	}
 }

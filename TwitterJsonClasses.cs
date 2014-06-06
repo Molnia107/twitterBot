@@ -39,6 +39,9 @@ namespace TwitterBot
 		public string id_str { get; set; }
 		public string name { get; set; }
 		public string screen_name { get; set; }
+		public string profile_image_url { get; set; }
+		/*public string profile_image_url_https { get; set; }
+
 		public string location { get; set; }
 		public string description { get; set; }
 		public string url { get; set; }
@@ -74,7 +77,7 @@ namespace TwitterBot
 		public bool default_profile_image { get; set; }
 		public bool following { get; set; }
 		public bool follow_request_sent { get; set; }
-		public bool notifications { get; set; }
+		public bool notifications { get; set; }*/
 	}
 
 	public class Medium2
@@ -299,14 +302,17 @@ namespace TwitterBot
 		public bool? possibly_sensitive { get; set; }
 	}
 
-	public class Status
+	public class Twitt
 	{
-
-		public Metadata metadata { get; set; }
+		public User user { get; set; }
+		public string text { get; set; }
 		public string created_at { get; set; }
+		/*
+		public Metadata metadata { get; set; }
+
 		public long? id { get; set; }
 		public string id_str { get; set; }
-		public string text { get; set; }
+
 		public string source { get; set; }
 		public bool truncated { get; set; }
 		public long? in_reply_to_status_id { get; set; }
@@ -314,7 +320,7 @@ namespace TwitterBot
 		public long? in_reply_to_user_id { get; set; }
 		public string in_reply_to_user_id_str { get; set; }
 		public string in_reply_to_screen_name { get; set; }
-		public User user { get; set; }
+
 		//public object geo { get; set; }
 		//public object coordinates { get; set; }
 		//public object place { get; set; }
@@ -326,7 +332,7 @@ namespace TwitterBot
 		public bool retweeted { get; set; }
 		public bool possibly_sensitive { get; set; }
 		public string lang { get; set; }
-		public RetweetedStatus retweeted_status { get; set; }
+		public RetweetedStatus retweeted_status { get; set; }*/
 	}
 
 	public class SearchMetadata
@@ -343,7 +349,7 @@ namespace TwitterBot
 
 	public class RootObject
 	{
-		public List<Status> statuses { get; set; }
+		public List<Twitt> statuses { get; set; }
 		public SearchMetadata search_metadata { get; set; }
 	}
 }
