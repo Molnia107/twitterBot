@@ -7,11 +7,11 @@ namespace TwitterBot
 {
 	public class TableSource : UITableViewSource
 	{
-		protected List<Twitt> tableItems;
+		List<Twitt> tableItems;
 		protected string cellIdentifier = "TableCell";
-		public TableSource (List<Twitt> items)
+		public TableSource ()
 		{
-			tableItems = items;
+			tableItems = new List<Twitt> ();
 		}
 		public override int RowsInSection (UITableView tableview, int section)
 		{
@@ -26,7 +26,11 @@ namespace TwitterBot
 				cell = new TwittTableCell (UITableViewCellStyle.Subtitle, cellIdentifier,tableItems [indexPath.Row]);
 			return cell;
 		}
+		public void SetSource(List<Twitt> twitts)
+		{
+			tableItems = twitts;
 
+		}
 
 	}
 }

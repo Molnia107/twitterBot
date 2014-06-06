@@ -6,29 +6,38 @@ namespace TwitterBot
 {
 	public class MyController : UIViewController
 	{
-		public MyController ()
-		{
+		string _tag;
+		MainView _view;
 
+		public MyController (string tag)
+		{
+			_tag = tag;
 
 		}
+
+
 
 		public override void LoadView ()
 		{
-			View = new MainView ();
+			_view = new MainView ();
+			View = _view;
 		}
 
-		ShyBot bot;
+
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			bot = new ShyBot ();
-			bot.Authontificate (ViewAuth);
+			if (!ShyBot.IsAuthorized)
+				ShyBot.Authontificate (ViewAuth);
+			else 
+			{
+				GetTwitts ();
+			}
 
 
 		}
-
 
 
 		public void ViewAuth( string authUrl)
@@ -57,14 +66,20 @@ namespace TwitterBot
 
 		private void ContinueAuthorization(string query, UIWebView webView)
 		{
-			bot.Authorize (query);
+			ShyBot.Authorize (query);
 			webView.RemoveFromSuperview ();
 
-			UITableView tableView = new UITableView (View.Bounds);
-			var twitts = bot.GetTwitts ("cute");
-			tableView.Source = new TableSource (twitts);
-			View.AddSubview (tableView);
+			GetTwitts ();
+
 			//else msg
+		}
+
+		void GetTwitts()
+		{
+
+			var twitts = ShyBot.GetTwitts (_tag);
+			_view.DisplayTwitts (twitts);
+
 		}
 	}
 }

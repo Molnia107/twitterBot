@@ -5,19 +5,15 @@ using System.Collections.Generic;
 
 namespace TwitterBot
 {
-	public class ShyBot
+	static public class ShyBot
 	{
-		TwitterCommunicator communicator = new TwitterCommunicator();
-		public bool IsAuthorized;
+		static TwitterCommunicator communicator = new TwitterCommunicator();
+		static public bool IsAuthorized = false;
 
-		public ShyBot ()
-		{
-			IsAuthorized = false;
-		}
 
 		public delegate void AuthontificateView(string authUrl);
 
-		public void Authontificate(AuthontificateView authontificateView)
+		static public void Authontificate(AuthontificateView authontificateView)
 		{
 			var url = communicator.Authenticate ();
 			if (url != null)
@@ -26,13 +22,13 @@ namespace TwitterBot
 
 		}
 
-		public void Authorize(string query)
+		static public void Authorize(string query)
 		{
 			IsAuthorized = communicator.Authorize (query);
 
 		}
 
-		public List<Twitt> GetTwitts(string tag)
+		static public List<Twitt> GetTwitts(string tag)
 		{
 			if (IsAuthorized) 
 			{

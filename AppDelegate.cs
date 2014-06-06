@@ -15,8 +15,14 @@ namespace TwitterBot
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			
-			_rootControler = new MyController ();
+
+			UITabBarController tabBarController = new UITabBarController ();
+			tabBarController.AddChildViewController (new MyController ("Twitter"));
+			tabBarController.AddChildViewController (new MyController ("Dribbble"));
+			tabBarController.AddChildViewController (new MyController ("Apple"));
+			tabBarController.AddChildViewController (new MyController ("GitHub"));
+
+			_rootControler = tabBarController;
 			window.RootViewController = _rootControler;
 
 			window.MakeKeyAndVisible ();
