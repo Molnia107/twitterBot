@@ -40,11 +40,11 @@ namespace TwitterBot
 			_infoLabel.SizeToFit ();
 
 			var size = _infoPhoneButton.Bounds.Size;
-			_infoPhoneButton.Frame = new RectangleF (new PointF (10, _infoLabel.Frame.Top + 30 + _infoLabel.Frame.Height), 
+			_infoPhoneButton.Frame = new RectangleF (new PointF (10, _infoLabel.Frame.Top + 20 + _infoLabel.Frame.Height), 
 				new SizeF(100,50));
 
 			size = _infoEmailButton.Bounds.Size;
-			_infoEmailButton.Frame = new RectangleF (new PointF (Frame.Width - 110, _infoLabel.Frame.Top + 30 + _infoLabel.Frame.Height), 
+			_infoEmailButton.Frame = new RectangleF (new PointF (Frame.Width - 110, _infoLabel.Frame.Top + 20 + _infoLabel.Frame.Height), 
 				new SizeF(100,50));
 
 
@@ -74,12 +74,14 @@ namespace TwitterBot
 			_infoPhoneButton.SetBackgroundImage(buttonImg,UIControlState.Normal);
 			_infoPhoneButton.SetImage(UIImage.FromFile ("icon_phone.png"),UIControlState.Normal);
 			_infoPhoneButton.SetBackgroundImage(selectedButtonImg,UIControlState.Highlighted);
+			_infoPhoneButton.ImageEdgeInsets = new UIEdgeInsets (-7, 0, 0, 0);
 
 			//_infoPhoneButton.SizeToFit ();
 
 			_infoEmailButton.SetBackgroundImage(buttonImg,UIControlState.Normal);
 			_infoEmailButton.SetImage(UIImage.FromFile ("icon_mail.png"),UIControlState.Normal);
 			_infoEmailButton.SetBackgroundImage(selectedButtonImg,UIControlState.Highlighted);
+			_infoEmailButton.ImageEdgeInsets = new UIEdgeInsets (-7, 0, 0, 0);
 
 			//_infoEmailButton.SizeToFit ();
 
