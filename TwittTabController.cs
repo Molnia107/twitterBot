@@ -5,35 +5,49 @@ namespace TwitterBot
 {
 	public class TwittTabController : UITabBarController
 	{
+
+		TwittsGetByTagController[] _tabs;
+
 		public TwittTabController ()
 		{
-			var tab1 = new MyController ("Twitter");
+			var tab1 = new TwittsGetByTagController ("Twitter");
 			tab1.TabBarItem = new UITabBarItem ();
 			tab1.TabBarItem.Title = "Twitter";
 			tab1.TabBarItem.Image = UIImage.FromFile ("icon_twitter.png");
 
-			var tab2 = new MyController ("Dribbble");
+			var tab2 = new TwittsGetByTagController ("Dribbble");
 			tab2.TabBarItem = new UITabBarItem ();
 			tab2.TabBarItem.Title = "Dribbble";
 			tab2.TabBarItem.Image = UIImage.FromFile ("icon_dribbble.png");
 
-			var tab3 = new MyController ("Apple");
+			var tab3 = new TwittsGetByTagController ("Apple");
 			tab3.TabBarItem = new UITabBarItem ();
 			tab3.TabBarItem.Title = "Apple";
 			tab3.TabBarItem.Image = UIImage.FromFile ("icon_apple.png");
 
-			var tab4 = new MyController ("GitHub");
+			var tab4 = new TwittsGetByTagController ("GitHub");
 			tab4.TabBarItem = new UITabBarItem ();
 			tab4.TabBarItem.Title = "GitHub";
 			tab4.TabBarItem.Image = UIImage.FromFile ("icon_github.png");
 
-			var tabs = new UIViewController[] {
+			_tabs = new TwittsGetByTagController[] {
 				tab1, tab2, tab3, tab4
 			};
 
-			SetViewControllers(tabs,true);
+			SetViewControllers(_tabs,true);
 
+			Title = "#Twitter";
+
+			ViewControllerSelected += OnSelected;
 		}
+
+
+		void OnSelected (object sender, UITabBarSelectionEventArgs e)
+		{
+			Title = "#"+_tabs [SelectedIndex].TabBarItem.Title;
+		}
+
+
 	}
 }
 

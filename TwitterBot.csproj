@@ -108,6 +108,11 @@
     <BundleResource Include="Resources\icon_twitter.png" />
     <BundleResource Include="Resources\button_pressed.png" />
     <BundleResource Include="Resources\button.png" />
+    <BundleResource Include="Resources\icon_mail.png" />
+    <BundleResource Include="Resources\icon_phone.png" />
+    <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\bg.png" />
+    <BundleResource Include="Resources\line.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -116,16 +121,22 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="MyController.cs" />
-    <Compile Include="MainView.cs" />
     <Compile Include="ShyBot.cs" />
     <Compile Include="AuthInfo.cs" />
     <Compile Include="TwitterCommunicator.cs" />
     <Compile Include="AuthParser.cs" />
     <Compile Include="TwitterJsonClasses.cs" />
-    <Compile Include="TableSource.cs" />
     <Compile Include="TwittTableCell.cs" />
     <Compile Include="TwittTabController.cs" />
+    <Compile Include="TwittsGetByTagController.cs" />
+    <Compile Include="TwittsGetByTagView.cs" />
+    <Compile Include="TwittController.cs" />
+    <Compile Include="TwittView.cs" />
+    <Compile Include="InfoView.cs" />
+    <Compile Include="InfoController.cs" />
+    <Compile Include="Info.cs" />
+    <Compile Include="ShyBotNavigationController.cs" />
+    <Compile Include="TwittsTableSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace TwitterBot
 {
@@ -40,7 +41,7 @@ namespace TwitterBot
 		public string name { get; set; }
 		public string screen_name { get; set; }
 		public string profile_image_url { get; set; }
-		/*public string profile_image_url_https { get; set; }
+		public string profile_image_url_https { get; set; }
 
 		public string location { get; set; }
 		public string description { get; set; }
@@ -65,8 +66,7 @@ namespace TwitterBot
 		public string profile_background_image_url { get; set; }
 		public string profile_background_image_url_https { get; set; }
 		public bool profile_background_tile { get; set; }
-		public string profile_image_url { get; set; }
-		public string profile_image_url_https { get; set; }
+
 		public string profile_banner_url { get; set; }
 		public string profile_link_color { get; set; }
 		public string profile_sidebar_border_color { get; set; }
@@ -77,7 +77,7 @@ namespace TwitterBot
 		public bool default_profile_image { get; set; }
 		public bool following { get; set; }
 		public bool follow_request_sent { get; set; }
-		public bool notifications { get; set; }*/
+		public bool notifications { get; set; }
 	}
 
 	public class Medium2
@@ -308,11 +308,24 @@ namespace TwitterBot
 		public string text { get; set; }
 		public string created_at { get; set; }
 		public string id_str { get; set; }
-		/*
-		public Metadata metadata { get; set; }
+
+		public string GetAge()
+		{
+			var date = DateTime.ParseExact(created_at,"ddd MMM dd HH:mm:ss zzz yyyy", CultureInfo.InvariantCulture);
+			var age = DateTime.Now- date;
+			if(Math.Round(age.TotalHours)==0)
+				return age.Minutes.ToString() + " м";
+			return Math.Round (age.TotalHours).ToString () + " ч";
+		}
+
+		public string GetDate()
+		{
+			var date = DateTime.ParseExact(created_at,"ddd MMM dd HH:mm:ss zzz yyyy", CultureInfo.InvariantCulture);
+			return date.ToString ("dd.MM.yyyy");
+		}
 
 		public long? id { get; set; }
-		public string id_str { get; set; }
+
 
 		public string source { get; set; }
 		public bool truncated { get; set; }
@@ -333,7 +346,7 @@ namespace TwitterBot
 		public bool retweeted { get; set; }
 		public bool possibly_sensitive { get; set; }
 		public string lang { get; set; }
-		public RetweetedStatus retweeted_status { get; set; }*/
+		public RetweetedStatus retweeted_status { get; set; }
 	}
 
 	public class SearchMetadata

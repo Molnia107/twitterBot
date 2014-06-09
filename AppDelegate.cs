@@ -11,16 +11,24 @@ namespace TwitterBot
 	{
 		UIWindow window;
 		UIViewController _rootControler;
+		UINavigationController _navigationController;
+		InfoController _infoController;
+		TwittController _twittController;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 
 
-			UITabBarController tabBarController = new TwittTabController ();
+			_navigationController = new ShyBotNavigationController ();
 
-			_rootControler = tabBarController;
+
+
+			//_navigationController.NavigationBar.Items [0].SetRightBarButtonItem (btn, true);
+
+			_rootControler = _navigationController;
 			window.RootViewController = _rootControler;
+
 
 			window.MakeKeyAndVisible ();
 
@@ -28,6 +36,9 @@ namespace TwitterBot
 			
 			return true;
 		}
+
+
+
 	}
 }
 

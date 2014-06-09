@@ -7,21 +7,36 @@ using MonoTouch.ObjCRuntime;
 
 namespace TwitterBot
 {
-	public class TableSource : UITableViewSource
+	public class TwittsTableSource : UITableViewSource
 	{
-		public event Action cl;
+
 		List<Twitt> tableItems;
 		protected string cellIdentifier = "TableCell";
-		public TableSource ()
+		ViewSelectedTwittDelegate _viewSelectedTwittDelegate;
+
+		public event Action cl;
+		public delegate void ViewSelectedTwittDelegate(Twitt twitt);
+
+
+		public TwittsTableSource (ViewSelectedTwittDelegate viewSelectedTwittDelegate)
 		{
 			tableItems = new List<Twitt> ();
+			_viewSelectedTwittDelegate = viewSelectedTwittDelegate;
 		}
 		public override int RowsInSection (UITableView tableview, int section)
 		{
 
 			return tableItems.Count;
 		}
-		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+
+		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+		{
+			if (_viewSelectedTwittDelegate != null)
+				_viewSelectedTwittDelegate (tableItems [indexPath.Row]);
+			tableView.DeselectRow (indexPath, true); 
+		}
+
+		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			if (indexPath.Row > 11) {
 			}
@@ -34,6 +49,9 @@ namespace TwitterBot
 			(cell as TwittTableCell).SetTwitt (tableItems[indexPath.Row]);
 			return cell;
 		}
+
+
+
 		public void SetSource(List<Twitt> twitts)
 		{
 			tableItems = twitts;
@@ -46,7 +64,10 @@ namespace TwitterBot
 
 		}
 
-
+		public Twitt GetTwitt(NSIndexPath indexPath)
+		{
+			return tableItems [indexPath.Row];
+		}
 
 //		
 	}
