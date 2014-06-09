@@ -16,8 +16,8 @@ namespace TwitterBot
 		{
 			_infoLabel = new UILabel ();
 			_infoImage = new UIImageView ();
-			_infoPhoneButton = UIButton.FromType (UIButtonType.System);
-			_infoEmailButton = UIButton.FromType (UIButtonType.System);
+			_infoPhoneButton = UIButton.FromType (UIButtonType.Custom);
+			_infoEmailButton = UIButton.FromType (UIButtonType.Custom);
 
 			AddSubview (_infoImage);
 			AddSubview (_infoLabel);
@@ -40,10 +40,12 @@ namespace TwitterBot
 			_infoLabel.SizeToFit ();
 
 			var size = _infoPhoneButton.Bounds.Size;
-			_infoPhoneButton.Frame = new RectangleF (new PointF (50, _infoLabel.Frame.Top + 30 + _infoLabel.Frame.Height), size);
+			_infoPhoneButton.Frame = new RectangleF (new PointF (10, _infoLabel.Frame.Top + 30 + _infoLabel.Frame.Height), 
+				new SizeF(100,50));
 
 			size = _infoEmailButton.Bounds.Size;
-			_infoEmailButton.Frame = new RectangleF (new PointF (Frame.Width - size.Width - 50, _infoLabel.Frame.Top + 30 + _infoLabel.Frame.Height), size);
+			_infoEmailButton.Frame = new RectangleF (new PointF (Frame.Width - 110, _infoLabel.Frame.Top + 30 + _infoLabel.Frame.Height), 
+				new SizeF(100,50));
 
 
 
@@ -62,10 +64,24 @@ namespace TwitterBot
 			_infoLabel.Font = UIFont.SystemFontOfSize (12);
 			//_infoLabel.SizeToFit();
 
-			_infoPhoneButton.SetBackgroundImage(UIImage.FromFile ("icon_phone.png"),UIControlState.Normal);
-			_infoPhoneButton.SizeToFit ();
-			_infoEmailButton.SetBackgroundImage(UIImage.FromFile ("icon_mail.png"),UIControlState.Normal);
-			_infoEmailButton.SizeToFit ();
+			var buttonImg = UIImage.FromFile ("button.png");
+			buttonImg = buttonImg.CreateResizableImage(new UIEdgeInsets(8,10,11,32));
+
+			var selectedButtonImg = UIImage.FromFile ("button_pressed.png");
+			selectedButtonImg = selectedButtonImg.CreateResizableImage(new UIEdgeInsets(8,10,11,32));
+
+
+			_infoPhoneButton.SetBackgroundImage(buttonImg,UIControlState.Normal);
+			_infoPhoneButton.SetImage(UIImage.FromFile ("icon_phone.png"),UIControlState.Normal);
+			_infoPhoneButton.SetBackgroundImage(selectedButtonImg,UIControlState.Highlighted);
+
+			//_infoPhoneButton.SizeToFit ();
+
+			_infoEmailButton.SetBackgroundImage(buttonImg,UIControlState.Normal);
+			_infoEmailButton.SetImage(UIImage.FromFile ("icon_mail.png"),UIControlState.Normal);
+			_infoEmailButton.SetBackgroundImage(selectedButtonImg,UIControlState.Highlighted);
+
+			//_infoEmailButton.SizeToFit ();
 
 		}
 

@@ -113,6 +113,17 @@
     <BundleResource Include="Resources\logo.png" />
     <BundleResource Include="Resources\bg.png" />
     <BundleResource Include="Resources\line.png" />
+    <BundleResource Include="Resources\button_pressed%402x.png" />
+    <BundleResource Include="Resources\button%402x.png" />
+    <BundleResource Include="Resources\icon_mail%402x.png" />
+    <BundleResource Include="Resources\icon_phone%402x.png" />
+    <BundleResource Include="Resources\logo%402x.png" />
+    <BundleResource Include="Resources\icon_apple%402x.png" />
+    <BundleResource Include="Resources\icon_dribbble%402x.png" />
+    <BundleResource Include="Resources\icon_github%402x.png" />
+    <BundleResource Include="Resources\icon_twitter%402x.png" />
+    <BundleResource Include="Resources\bg%402x.png" />
+    <BundleResource Include="Resources\line%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
