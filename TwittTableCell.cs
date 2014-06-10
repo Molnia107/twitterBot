@@ -14,7 +14,7 @@ namespace TwitterBot
 
 		public TwittTableCell (UITableViewCellStyle style, string reuseIdentifier):base(style, reuseIdentifier)
 		{
-			BackgroundColor = UIColor.FromRGB (235, 235, 235);
+
 			_timeLabel = new UILabel ();
 			_timeLabel.TextColor = UIColor.FromRGB (159,159,159);
 			_timeLabel.Font = UIFont.SystemFontOfSize (10);
@@ -24,6 +24,19 @@ namespace TwitterBot
 
 			var maskImg = UIImage.FromFile ("mask_avatar_mini.png").CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
+
+			var cellImage = UIImage.FromFile ("table.png");
+			cellImage = cellImage.CreateResizableImage(new UIEdgeInsets(1,1,2,54));
+			var cellImageView = new UIImageView ();
+			cellImageView.Image = cellImage;
+			BackgroundView = cellImageView;
+
+			var cellImagePressed = UIImage.FromFile ("table_pressed.png");
+			cellImagePressed = cellImagePressed.CreateResizableImage(new UIEdgeInsets(1,1,2,54));
+			var cellImagePressedView = new UIImageView ();
+			cellImagePressedView.Image = cellImagePressed;
+			SelectedBackgroundView = cellImagePressedView;
+
 		}
 
 		public void UpdatedImage (Uri uri)

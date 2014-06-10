@@ -136,6 +136,10 @@
     <BundleResource Include="Resources\avatar_big.png" />
     <BundleResource Include="Resources\avatar_big%402x.png" />
     <BundleResource Include="Resources\avatar%402x.png" />
+    <BundleResource Include="Resources\table_pressed.png" />
+    <BundleResource Include="Resources\table_pressed%402x.png" />
+    <BundleResource Include="Resources\table.png" />
+    <BundleResource Include="Resources\table%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

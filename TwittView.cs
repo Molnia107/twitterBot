@@ -60,6 +60,7 @@ namespace TwitterBot
 			_twittDateLabel.Font = UIFont.SystemFontOfSize (10);
 			_twittDateLabel.TextColor = UIColor.FromRGB (123,123,123);
 
+			_userMaskImageView.Frame = new RectangleF (0, 0, 72, 72);
 			var maskImg = UIImage.FromFile ("mask_avatar.png").CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
 		}
@@ -108,7 +109,7 @@ namespace TwitterBot
 
 			CGImage imgWithMaskCG = _avatarCG.WithMask (_mask);
 			_userMaskImageView.Image = new UIImage(imgWithMaskCG);
-			_userMaskImageView.SizeToFit ();
+
 
 			_userNameLabel.Text = _twitt.user.name;
 			_userNameLabel.SizeToFit ();
@@ -133,7 +134,7 @@ namespace TwitterBot
 				_avatarCG = image.CGImage;
 				CGImage imgWithMaskCG = _avatarCG.WithMask (_mask);
 				_userMaskImageView.Image = new UIImage(imgWithMaskCG);
-				_userMaskImageView.SizeToFit ();
+				//_userMaskImageView.SizeToFit ();
 
 
 			}
