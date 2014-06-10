@@ -20,18 +20,18 @@ namespace TwitterBot
 		Twitt _twitt;
 		CGImage _avatarCG;
 		CGImage _mask;
-
+		int _top;
 
 		public TwittView ()
 		{
 			_backgroundImageView = new UIImageView ();
-			_userNameLabel = new UILabel ();
+			_userNameLabel = ViewFabric.CreateUILabel ();
 			_userMaskImageView = new UIImageView ();
-			_viaLabel = new UILabel ();
-			_twittTextLabel = new UILabel ();
+			_viaLabel = ViewFabric.CreateUILabel ();
+			_twittTextLabel = ViewFabric.CreateUILabel ();
 			_lineImageView = new UIImageView ();
-			_twittDateLabel = new UILabel ();
-			_twittUrlLabel = new UILabel ();
+			_twittDateLabel = ViewFabric.CreateUILabel ();
+			_twittUrlLabel = ViewFabric.CreateUILabel ();
 
 			AddSubview (_backgroundImageView);
 			AddSubview (_userNameLabel);
@@ -63,11 +63,16 @@ namespace TwitterBot
 			_userMaskImageView.Frame = new RectangleF (0, 0, 72, 72);
 			var maskImg = UIImage.FromFile ("mask_avatar.png").CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
+
+			if (UIDevice.CurrentDevice.SystemVersion.Split('.')[0]!="6")
+				_top = 65;
 		}
 
 		public override void LayoutSubviews ()
 		{
 			base.LayoutSubviews ();
+
+
 
 			_backgroundImageView.Frame = Bounds;
 
@@ -75,10 +80,10 @@ namespace TwitterBot
 			//_userImage.Frame = new RectangleF (new PointF (30, 100), size);
 
 			var size = _userMaskImageView.Frame.Size;
-			_userMaskImageView.Frame = new RectangleF (new PointF (30, 100), size);
+			_userMaskImageView.Frame = new RectangleF (new PointF (30, _top+35), size);
 
 			size = _userNameLabel.Frame.Size;
-			_userNameLabel.Frame = new RectangleF( new PointF(30 + _userMaskImageView.Frame.Width + 20, 110), size);
+			_userNameLabel.Frame = new RectangleF( new PointF(30 + _userMaskImageView.Frame.Width + 20, _top+45), size);
 
 
 			size = _viaLabel.Frame.Size;

@@ -29,7 +29,7 @@ namespace TwitterBot
 
 		public void Call()
 		{
-			var url = new NSUrl ("tel:" + "+79310028990");
+			var url = new NSUrl ("tel:+79310028990");
 			if (!UIApplication.SharedApplication.OpenUrl (url)) 
 			{
 				var av = new UIAlertView ("Not supported",
@@ -44,7 +44,7 @@ namespace TwitterBot
 
 		public void Email()
 		{
-			var url = new NSUrl("mailto:you@gmail.com?subject=" + "hello@touchin.ru");
+			var url = new NSUrl("mailto:hello@touchin.ru?subject=mail");
 			if (!UIApplication.SharedApplication.OpenUrl (url)) 
 			{
 				var av = new UIAlertView ("Not supported",

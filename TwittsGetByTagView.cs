@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using MonoTouch.Foundation;
 using System.Drawing;
 using BigTed;
+using MonoTouch.ObjCRuntime;
 
 namespace TwitterBot
 {
 	public class TwittsGetByTagView: UIView
 	{
+
 		UITableView _tableView ;
 		TwittsTableSource _tableSource;
 		UIWebView _webView;
@@ -17,6 +19,7 @@ namespace TwitterBot
 		GetMoreTwittsDelegate _getMoreTwittsDelegate;
 		ContinueAuthorizationDelegate _continueAthorizationDelegate;
 		ViewTwittDelegate _viewTwittDelegate;
+		int _top,_bottom,_bottomWebView;
 
 
 		public delegate List<Twitt> GetMoreTwittsDelegate ();
@@ -28,13 +31,31 @@ namespace TwitterBot
 		{
 			BackgroundColor = UIColor.White;
 			_tableView = new UITableView ();
-			AddSubview (_tableView);
 			_tableSource = new TwittsTableSource (TableSource_RowSelected);
-			_tableView.Source = _tableSource;
-			_footerView = new UIView ();
-			_footerView.ClipsToBounds = true;
 			_buttonLoadTwitts  = UIButton.FromType (UIButtonType.System);
+			_footerView = new UIView ();
+
+			AddSubview (_tableView);
 			InitTableViewFooter ();
+
+			if(_tableView.RespondsToSelector(new Selector("setSeparatorInset:")))
+				_tableView.SeparatorInset = new UIEdgeInsets (0, 0, 0, 0);
+
+			_tableView.Source = _tableSource;
+			//_tableView.ScrollIndicatorInsets = new UIEdgeInsets (0, 0, 0, 0);
+			bool f = _tableView.TableFooterView.AccessibilityScroll (UIAccessibilityScrollDirection.Down);
+
+
+			if (UIDevice.CurrentDevice.SystemVersion.Split ('.') [0] != "6") 
+			{
+				_top = 65;
+				_bottom = 65;
+				_bottomWebView = 145;
+			} 
+			else 
+			{
+				_top = -25;
+			}
 
 
 		}
@@ -77,19 +98,21 @@ namespace TwitterBot
 		{
 			base.LayoutSubviews ();
 			var tableOffset = _tableView.ContentOffset;
+
 			_tableView.Frame = Bounds;
 			_tableView.ContentOffset = tableOffset;
-			_tableView.ContentInset = new UIEdgeInsets (65, 0, 80, 0);
-			_tableView.ScrollIndicatorInsets = new UIEdgeInsets (65, 0, 80, 0);
+
+			_tableView.ContentInset = new UIEdgeInsets (_top, 0, _bottom+40, 0);
+			_tableView.ScrollIndicatorInsets = new UIEdgeInsets (_top, 0, 50, 0);
+
 
 			if (_webView != null)
-			{
-				_webView.Frame = new RectangleF(0,65,Bounds.Size.Width,Bounds.Size.Height-145);
+				_webView.Frame = new RectangleF(0,_top,Bounds.Size.Width,Bounds.Size.Height-_bottomWebView);
 
-			}
-			_footerView.Frame = new System.Drawing.RectangleF (_footerView.Frame.Location,new SizeF(Bounds.Width,50));
-			var buttonSize = _buttonLoadTwitts.Frame.Size;
-			_buttonLoadTwitts.Frame = new RectangleF (new PointF ((_footerView.Bounds.Width - buttonSize.Width) / 2, 0), buttonSize);
+			_tableView.TableFooterView.Frame = new System.Drawing.RectangleF (_tableView.TableFooterView.Frame.Location,new SizeF(Bounds.Width,50));
+			_footerView.Frame = new RectangleF(new PointF(0,0),_tableView.TableFooterView.Bounds.Size);
+			_buttonLoadTwitts.Center = _footerView.Center;
+
 
 		}
 
@@ -108,7 +131,7 @@ namespace TwitterBot
 			_webView = new UIWebView ();
 			_webView.ShouldStartLoad += WebViewAuth_ShouldStartLoad;
 			//_webView.Frame = UIScreen.MainScreen.Bounds;
-			AddSubview (_webView);
+			//AddSubview (_webView);
 			_webView.LoadRequest(new NSUrlRequest(new NSUrl(authUrl)));
 		}
 
@@ -120,21 +143,23 @@ namespace TwitterBot
 
 		public void InitTableViewFooter()
 		{
-			_tableView.TableFooterView = _footerView;
-			_footerView.Frame = new System.Drawing.RectangleF (0,0,320,50);
-
+			_footerView.ClipsToBounds = true;
+			_tableView.TableFooterView = new UIView ();
+			_tableView.TableFooterView.AddSubview(_footerView);
+			//_footerView.Frame = new System.Drawing.RectangleF (0,0,320,50);
 
 			_buttonLoadTwitts.SetTitle ("Показать еще", UIControlState.Normal);
 
 			_buttonLoadTwitts.SizeToFit ();
 			_buttonLoadTwitts.TouchUpInside += ButtonLoadTwitts_TouchUpInside;
+
 			//buttonLoadTwitts.AddTarget (null, new Selector("sender:event:"), UIControlEvent.TouchUpInside);
 			_footerView.AddSubview (_buttonLoadTwitts);
 		}
 
 		public void ScrollToTop()
 		{
-			_tableView.ContentOffset = new PointF (0, -65);
+			_tableView.ContentOffset = new PointF (0, -1*_top);
 		}
 
 		public void ShowBTProgressHUD()

@@ -165,6 +165,7 @@
     <Compile Include="ShyBotNavigationController.cs" />
     <Compile Include="TwittsTableSource.cs" />
     <Compile Include="UIImageViewCornersRounded.cs" />
+    <Compile Include="ViewFabric.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -173,7 +174,6 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="btprogresshud">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>1.10</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>

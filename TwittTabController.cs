@@ -35,12 +35,23 @@ namespace TwitterBot
 			};
 
 			SetViewControllers(_tabs,true);
+//			SelectedIndex = 1;
+			SelectedViewController = tab1;
 
 			Title = "#Twitter";
 
 			ViewControllerSelected += OnSelected;
 		}
 
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+		}
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+		}
 
 		void OnSelected (object sender, UITabBarSelectionEventArgs e)
 		{

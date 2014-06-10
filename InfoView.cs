@@ -18,9 +18,11 @@ namespace TwitterBot
 		public delegate void CallDelegate();
 		public delegate void EmailDelegate ();
 
+		int _top;
+
 		public InfoView (CallDelegate callDelegate, EmailDelegate emailDelegate)
 		{
-			_infoLabel = new UILabel ();
+			_infoLabel = ViewFabric.CreateUILabel ();
 			_infoImage = new UIImageView ();
 			_infoPhoneButton = UIButton.FromType (UIButtonType.Custom);
 			_infoEmailButton = UIButton.FromType (UIButtonType.Custom);
@@ -37,6 +39,9 @@ namespace TwitterBot
 
 			_infoPhoneButton.TouchUpInside += InfoPhoneButton_TouchUpInside;
 			_infoEmailButton.TouchUpInside += InfoEmailButton_TouchUpInside;
+
+			if (UIDevice.CurrentDevice.SystemVersion.Split('.')[0]!="6")
+				_top = 65;
 		}
 
 
@@ -54,9 +59,11 @@ namespace TwitterBot
 
 		public override void LayoutSubviews ()
 		{
+		
+
 			base.LayoutSubviews ();
 			var imageSize = _infoImage.Frame.Size;
-			_infoImage.Frame = new RectangleF (new PointF ((Frame.Width - imageSize.Width) / 2, 75), imageSize);
+			_infoImage.Frame = new RectangleF (new PointF ((Frame.Width - imageSize.Width) / 2, _top + 10), imageSize);
 
 			var infoSize = _infoLabel.Bounds;
 			//_infoLabel.Lines = (int)(_infoLabel.Text.Length / 35);

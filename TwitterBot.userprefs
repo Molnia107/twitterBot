@@ -1,30 +1,34 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina.7.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="TwittView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TwittsGetByTagView.cs">
     <Files>
-      <File FileName="InfoView.cs" Line="47" Column="100" />
-      <File FileName="TwittView.cs" Line="35" Column="32" />
+      <File FileName="TwittTableCell.cs" Line="19" Column="45" />
+      <File FileName="InfoView.cs" Line="46" Column="3" />
+      <File FileName="TwittController.cs" Line="1" Column="1" />
+      <File FileName="TwittView.cs" Line="67" Column="63" />
+      <File FileName="InfoController.cs" Line="48" Column="56" />
+      <File FileName="TwittsGetByTagView.cs" Line="105" Column="68" />
+      <File FileName="ViewFabric.cs" Line="18" Column="17" />
+      <File FileName="TwittsGetByTagController.cs" Line="53" Column="1" />
+      <File FileName="TwittTabController.cs" Line="42" Column="1" />
+      <File FileName="ShyBotNavigationController.cs" Line="33" Column="1" />
+      <File FileName="AppDelegate.cs" Line="38" Column="1" />
+      <File FileName="Main.cs" Line="16" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="TwitterBot" expanded="True" selected="True">
+          <Node name="TwitterBot" expanded="True">
             <Node name="References" expanded="True" />
             <Node name="ComponentReferenceFolder" expanded="True" />
-            <Node name="Resources" expanded="True" />
+            <Node name="TwittsGetByTagView.cs" selected="True" />
           </Node>
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
         <State>
-          <Value>this.Subviews</Value>
-          <Value>iRestResponse</Value>
-          <Value>request</Value>
-          <Value>request.Url.AbsoluteString</Value>
-          <Value>Bounds</Value>
-          <Value>_tableSource.RowsInSection()</Value>
-          <Value>_infoLabel.Frame</Value>
-          <Value>_infoPhoneButton.Frame</Value>
+          <Value>UIDevice.CurrentDevice.CheckSystemVersion (6, 0)</Value>
+          <Value>UIDevice.CurrentDevice.SystemVersion</Value>
         </State>
       </Pad>
     </Pads>

@@ -14,28 +14,36 @@ namespace TwitterBot
 
 		public TwittTableCell (UITableViewCellStyle style, string reuseIdentifier):base(style, reuseIdentifier)
 		{
+			ContentView.BackgroundColor = UIColor.FromRGB (235, 235, 235);
 
-			_timeLabel = new UILabel ();
+			_timeLabel = ViewFabric.CreateUILabel ();
 			_timeLabel.TextColor = UIColor.FromRGB (159,159,159);
 			_timeLabel.Font = UIFont.SystemFontOfSize (10);
-			this.AddSubview (_timeLabel);
+			ContentView.AddSubview (_timeLabel);
+
+			TextLabel.BackgroundColor = UIColor.Clear;
 			TextLabel.Font = UIFont.BoldSystemFontOfSize (15);
+			DetailTextLabel.BackgroundColor = UIColor.Clear;
 			DetailTextLabel.TextColor = UIColor.FromRGB (159,159,159);
+
 
 			var maskImg = UIImage.FromFile ("mask_avatar_mini.png").CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
 
-			var cellImage = UIImage.FromFile ("table.png");
-			cellImage = cellImage.CreateResizableImage(new UIEdgeInsets(1,1,2,54));
-			var cellImageView = new UIImageView ();
-			cellImageView.Image = cellImage;
-			BackgroundView = cellImageView;
+			var size = _timeLabel.Frame.Size;
+			_timeLabel.Frame = new RectangleF (new System.Drawing.PointF (Bounds.Width - 25, 15), size);
+		}
 
-			var cellImagePressed = UIImage.FromFile ("table_pressed.png");
-			cellImagePressed = cellImagePressed.CreateResizableImage(new UIEdgeInsets(1,1,2,54));
-			var cellImagePressedView = new UIImageView ();
-			cellImagePressedView.Image = cellImagePressed;
-			SelectedBackgroundView = cellImagePressedView;
+		public override void LayoutSubviews ()
+		{
+			base.LayoutSubviews ();
+			//Frame = new RectangleF(Bounds.Location, new SizeF(Bounds.Width, 70));
+			ImageView.Frame = new RectangleF (5,5,Bounds.Height-10, Bounds.Height-10);
+
+
+			TextLabel.Frame = new RectangleF (new PointF(ImageView.Bounds.Width + 15, 5), new SizeF( Bounds.Width - ImageView.Bounds.Width - 20,TextLabel.Bounds.Height));
+			DetailTextLabel.Frame = new RectangleF (new PointF(ImageView.Bounds.Width + 15, 25), new SizeF(Bounds.Width - ImageView.Bounds.Width - 20,DetailTextLabel.Bounds.Height));
+
 
 		}
 
@@ -67,11 +75,13 @@ namespace TwitterBot
 
 			CGImage imgWithMaskCG = imageCG.WithMask (_mask);
 			ImageView.Image = new UIImage (imgWithMaskCG);
+			//ImageView.SizeToFit ();
+
+
 
 			_timeLabel.Text = _twitt.GetAge ();
 			_timeLabel.SizeToFit ();
-			var size = _timeLabel.Frame.Size;
-			_timeLabel.Frame = new RectangleF (new System.Drawing.PointF (this.Frame.Width - 25, this.Frame.Height - 25), size);
+
 
 
 		}
