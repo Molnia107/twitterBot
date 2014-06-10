@@ -2,6 +2,7 @@
 using MonoTouch.UIKit;
 using MonoTouch.Dialog.Utilities;
 using System.Drawing;
+using MonoTouch.CoreGraphics;
 
 namespace TwitterBot
 {
@@ -9,6 +10,7 @@ namespace TwitterBot
 	{
 		Twitt _twitt;
 		UILabel _timeLabel;
+		CGImage _mask;
 
 		public TwittTableCell (UITableViewCellStyle style, string reuseIdentifier):base(style, reuseIdentifier)
 		{
@@ -20,6 +22,8 @@ namespace TwitterBot
 			TextLabel.Font = UIFont.BoldSystemFontOfSize (15);
 			DetailTextLabel.TextColor = UIColor.FromRGB (159,159,159);
 
+			var maskImg = UIImage.FromFile ("mask_avatar.png").CGImage;
+			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
 		}
 
 		public void UpdatedImage (Uri uri)

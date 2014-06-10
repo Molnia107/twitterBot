@@ -43,6 +43,12 @@ namespace TwitterBot
 		public string profile_image_url { get; set; }
 		public string profile_image_url_https { get; set; }
 
+		public string GetBigProfileImageUrl()
+		{
+			var url = profile_image_url.Replace ("normal", "bigger");
+			return url;
+		}
+		/*
 		public string location { get; set; }
 		public string description { get; set; }
 		public string url { get; set; }
@@ -77,7 +83,7 @@ namespace TwitterBot
 		public bool default_profile_image { get; set; }
 		public bool following { get; set; }
 		public bool follow_request_sent { get; set; }
-		public bool notifications { get; set; }
+		public bool notifications { get; set; }*/
 	}
 
 	public class Medium2

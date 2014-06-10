@@ -99,11 +99,11 @@ namespace TwitterBot
 		{
 			_twitt = twitt;
 
-			var image = ImageLoader.DefaultRequestImage (new Uri (_twitt.user.profile_image_url), this);
+			var image = ImageLoader.DefaultRequestImage (new Uri (_twitt.user.GetBigProfileImageUrl()), this);
 			if (image != null)
 				_avatarCG = image.CGImage;
 			else
-				_avatarCG = UIImage.FromFile ("avatar.png").CGImage;
+				_avatarCG = UIImage.FromFile ("avatar_big.png").CGImage;
 
 
 			CGImage imgWithMaskCG = _avatarCG.WithMask (_mask);
@@ -127,9 +127,9 @@ namespace TwitterBot
 
 		public void UpdatedImage (Uri uri)
 		{
-			if (uri.OriginalString == _twitt.user.profile_image_url) 
+			if (uri.OriginalString == _twitt.user.GetBigProfileImageUrl()) 
 			{
-				var image = ImageLoader.DefaultRequestImage (new Uri(_twitt.user.profile_image_url), this);
+				var image = ImageLoader.DefaultRequestImage (new Uri(_twitt.user.GetBigProfileImageUrl()), this);
 				_avatarCG = image.CGImage;
 				CGImage imgWithMaskCG = _avatarCG.WithMask (_mask);
 				_userMaskImageView.Image = new UIImage(imgWithMaskCG);
