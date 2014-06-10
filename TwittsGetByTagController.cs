@@ -4,6 +4,7 @@ using MonoTouch.Foundation;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace TwitterBot
 {
 	public class TwittsGetByTagController : UIViewController
@@ -38,10 +39,10 @@ namespace TwitterBot
 
 		void GetTwitts()
 		{
-
+			_view.ShowBTProgressHUD ();
 			_twittList = ShyBot.GetTwitts (_tag);
 			_view.DisplayTwitts (_twittList, GetMoreTwitts, PushTwittToNavigator);
-
+			_view.HideBTProgressHUD ();
 		}
 
 		public override void LoadView ()
@@ -80,10 +81,12 @@ namespace TwitterBot
 
 		public List<Twitt> GetMoreTwitts()
 		{
+			_view.ShowBTProgressHUD ();
 			var newTwitts = ShyBot.GetMoreTwitts (_tag,_twittList );
 			if(newTwitts.Count > 0)
 				newTwitts.RemoveAt (0);
 			_twittList = _twittList.Concat (newTwitts).ToList();
+			_view.HideBTProgressHUD ();
 			return newTwitts;
 		}
 

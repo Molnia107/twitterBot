@@ -3,6 +3,7 @@ using MonoTouch.UIKit;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using System.Drawing;
+using BigTed;
 
 namespace TwitterBot
 {
@@ -60,8 +61,7 @@ namespace TwitterBot
 				NSIndexPath tmpIndexPath = NSIndexPath.FromRowSection(i,0); 
 				tmpList.Add(tmpIndexPath);	
 			} 
-			//			NSIndexPath
-			//var pathes = NSIndexPath.FromRowSection(_tableView. , 15);
+
 			_tableView.InsertRows(tmpList.ToArray(), UITableViewRowAnimation.None);
 		}
 
@@ -137,6 +137,16 @@ namespace TwitterBot
 			_tableView.ContentOffset = new PointF (0, -65);
 		}
 
+		public void ShowBTProgressHUD()
+		{
+			BTProgressHUD.Show(); //shows the spinner
+			BTProgressHUD.Show("Загрузка данных"); //show spinner + text
+		}
+
+		public void HideBTProgressHUD()
+		{
+			BTProgressHUD.Dismiss();
+		}
 	}
 }
 

@@ -12,8 +12,13 @@ namespace TwitterBot
 		UILabel _infoLabel;
 		UIButton _infoPhoneButton;
 		UIButton _infoEmailButton;
+		CallDelegate _callDelegate;
+		EmailDelegate _emailDelegate;
 
-		public InfoView ()
+		public delegate void CallDelegate();
+		public delegate void EmailDelegate ();
+
+		public InfoView (CallDelegate callDelegate, EmailDelegate emailDelegate)
 		{
 			_infoLabel = new UILabel ();
 			_infoImage = new UIImageView ();
@@ -26,6 +31,25 @@ namespace TwitterBot
 			AddSubview (_infoEmailButton);
 
 			BackgroundColor = UIColor.White;
+
+			_callDelegate = callDelegate;
+			_emailDelegate = emailDelegate;
+
+			_infoPhoneButton.TouchUpInside += InfoPhoneButton_TouchUpInside;
+			_infoEmailButton.TouchUpInside += InfoEmailButton_TouchUpInside;
+		}
+
+
+		void InfoPhoneButton_TouchUpInside(object sender, EventArgs ea)
+		{
+			if (_callDelegate != null)
+				_callDelegate ();
+		}
+
+		void InfoEmailButton_TouchUpInside(object sender, EventArgs ea)
+		{
+			if (_emailDelegate != null)
+				_emailDelegate ();
 		}
 
 		public override void LayoutSubviews ()
