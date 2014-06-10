@@ -22,7 +22,7 @@ namespace TwitterBot
 			TextLabel.Font = UIFont.BoldSystemFontOfSize (15);
 			DetailTextLabel.TextColor = UIColor.FromRGB (159,159,159);
 
-			var maskImg = UIImage.FromFile ("mask_avatar.png").CGImage;
+			var maskImg = UIImage.FromFile ("mask_avatar_mini.png").CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
 		}
 
@@ -30,8 +30,11 @@ namespace TwitterBot
 		{
 			if (uri.OriginalString == _twitt.user.profile_image_url) 
 			{
-				var image = ImageLoader.DefaultRequestImage (new Uri(_twitt.user.profile_image_url), this);
-				ImageView.Image = image;
+				var imageCG = ImageLoader.DefaultRequestImage (new Uri(_twitt.user.profile_image_url), this).CGImage;
+
+				CGImage imgWithMaskCG = imageCG.WithMask (_mask);
+				ImageView.Image = new UIImage (imgWithMaskCG);
+
 			}
 		}
 
@@ -42,12 +45,15 @@ namespace TwitterBot
 
 			DetailTextLabel.Text = _twitt.text;
 
+			CGImage imageCG;
 			var image = ImageLoader.DefaultRequestImage (new Uri (_twitt.user.profile_image_url), this);
 			if (image != null)
-				ImageView.Image = image;
+				imageCG = image.CGImage;
 			else
-				ImageView.Image = UIImage.FromFile ("avatar.png");
-			//ImageView.Frame = new RectangleF(10,10,10,10);
+				imageCG = UIImage.FromFile ("avatar.png").CGImage;
+
+			CGImage imgWithMaskCG = imageCG.WithMask (_mask);
+			ImageView.Image = new UIImage (imgWithMaskCG);
 
 			_timeLabel.Text = _twitt.GetAge ();
 			_timeLabel.SizeToFit ();
