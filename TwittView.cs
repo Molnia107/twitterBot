@@ -2,13 +2,15 @@
 using MonoTouch.UIKit;
 using MonoTouch.Dialog.Utilities;
 using System.Drawing;
+using MonoTouch.CoreGraphics;
 
 namespace TwitterBot
 {
 	public class TwittView: UIView, IImageUpdated
 	{
 		UIImageView _backgroundImage;
-		UIImageView _userImage;
+		UIImageViewCornersRounded _userImage;
+		UIImageView _userMaskImage;
 		UILabel _userNameLabel;
 		UILabel _viaLabel;
 		UILabel _twittTextLabel;
@@ -16,12 +18,16 @@ namespace TwitterBot
 		UILabel _twittDateLabel;
 		UILabel _twittUrlLabel;
 		Twitt _twitt;
+		CGImage _mask;
+
 
 		public TwittView ()
 		{
 			_backgroundImage = new UIImageView ();
-			_userImage = new UIImageView ();
+			_userImage = new UIImageViewCornersRounded ();
+
 			_userNameLabel = new UILabel ();
+			_userMaskImage = new UIImageView ();
 			_viaLabel = new UILabel ();
 			_twittTextLabel = new UILabel ();
 			_lineImage = new UIImageView ();
@@ -29,13 +35,15 @@ namespace TwitterBot
 			_twittUrlLabel = new UILabel ();
 
 			AddSubview (_backgroundImage);
-			AddSubview (_userImage);
+			//AddSubview (_userImage);
+			//AddSubview (_userMaskImage);
 			AddSubview (_userNameLabel);
 			AddSubview (_viaLabel);
 			AddSubview (_twittTextLabel);
 			AddSubview (_lineImage);
 			AddSubview (_twittDateLabel);
 			AddSubview (_twittUrlLabel);
+			AddSubview (_userMaskImage);
 
 			_backgroundImage.Image = UIImage.FromFile ("bg.png");
 
@@ -62,18 +70,21 @@ namespace TwitterBot
 
 			_backgroundImage.Frame = Bounds;
 
-			var size = _userImage.Frame.Size;
-			_userImage.Frame = new RectangleF (new PointF (30, 100), size);
+			//var size = _userImage.Frame.Size;
+			//_userImage.Frame = new RectangleF (new PointF (30, 100), size);
+
+			var size = _userMaskImage.Frame.Size;
+			_userMaskImage.Frame = new RectangleF (new PointF (30, 100), size);
 
 			size = _userNameLabel.Frame.Size;
-			_userNameLabel.Frame = new RectangleF( new PointF(30 + _userImage.Frame.Width + 20, 110), size);
+			_userNameLabel.Frame = new RectangleF( new PointF(30 + _userMaskImage.Frame.Width + 20, 110), size);
 
 
 			size = _viaLabel.Frame.Size;
-			_viaLabel.Frame = new RectangleF(new PointF(30 + _userImage.Frame.Width + 20,_userNameLabel.Frame.Top+_userNameLabel.Frame.Height+5), size);
+			_viaLabel.Frame = new RectangleF(new PointF(30 + _userMaskImage.Frame.Width + 20,_userNameLabel.Frame.Top+_userNameLabel.Frame.Height+5), size);
 		
 		
-			_twittTextLabel.Frame = new RectangleF(new PointF(10, _userImage.Frame.Top + _userImage.Frame.Height + 20), 
+			_twittTextLabel.Frame = new RectangleF(new PointF(10, _userMaskImage.Frame.Top + _userMaskImage.Frame.Height + 20), 
 				new SizeF(Frame.Width - 20,0));
 			_twittTextLabel.SizeToFit ();
 
@@ -87,12 +98,22 @@ namespace TwitterBot
 		public void ShowTwitt(Twitt twitt)
 		{
 			_twitt = twitt;
+
 			var image = ImageLoader.DefaultRequestImage (new Uri (_twitt.user.profile_image_url), this);
 			if (image != null)
-				_userImage.Image = image;
+				_mask = image.CGImage;
+			//_userImage.Image = image;
 			else
-				_userImage.Image = UIImage.FromFile ("avatar.png");
-			_userImage.SizeToFit ();
+				_mask = UIImage.FromFile ("avatar.png").CGImage;
+
+
+			//_mask = CGImage.FromPNG (new CGDataProvider ("avatar.png"), null, true, new CGColorRenderingIntent ());
+			var mask = CGImage.CreateMask(50,50,_mask.BitsPerComponent,_mask.BitsPerPixel, _mask.BytesPerRow,new CGDataProvider ("mask_avatar@2x.png"), null, true);
+			_mask.WithMask (mask);
+			_userMaskImage.Image = new UIImage(_mask);
+			_userMaskImage.SizeToFit ();
+			//_userMaskImage.Bounds = new RectangleF (0, 0, 50, 50);
+
 
 			_userNameLabel.Text = _twitt.user.name;
 			_userNameLabel.SizeToFit ();
@@ -114,7 +135,14 @@ namespace TwitterBot
 			if (uri.OriginalString == _twitt.user.profile_image_url) 
 			{
 				var image = ImageLoader.DefaultRequestImage (new Uri(_twitt.user.profile_image_url), this);
+				_mask = image.CGImage;
+				_mask.WithMask (CGImage.FromPNG (new CGDataProvider ("mask_avatar.png"), null, true, new CGColorRenderingIntent ()));
+				_userMaskImage.Image = new UIImage(_mask);
+				_userMaskImage.SizeToFit ();
+				/*
 				_userImage.Image = image;
+				_userImage.SizeToFit ();
+				_userImage.SetCorners (UIRectCorner.AllCorners, 2);*/
 			}
 		}
 	}

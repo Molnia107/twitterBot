@@ -1,11 +1,33 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhoneRetina.7.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TwittView.cs">
     <Files>
-      <File FileName="AppDelegate.cs" Line="31" Column="13" />
-      <File FileName="MyController.cs" Line="14" Column="27" />
-      <File FileName="MainView.cs" Line="10" Column="35" />
+      <File FileName="InfoView.cs" Line="47" Column="100" />
+      <File FileName="TwittView.cs" Line="35" Column="32" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="TwitterBot" expanded="True" selected="True">
+            <Node name="References" expanded="True" />
+            <Node name="ComponentReferenceFolder" expanded="True" />
+            <Node name="Resources" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>this.Subviews</Value>
+          <Value>iRestResponse</Value>
+          <Value>request</Value>
+          <Value>request.Url.AbsoluteString</Value>
+          <Value>Bounds</Value>
+          <Value>_tableSource.RowsInSection()</Value>
+          <Value>_infoLabel.Frame</Value>
+          <Value>_infoPhoneButton.Frame</Value>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

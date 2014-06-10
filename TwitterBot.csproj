@@ -124,6 +124,15 @@
     <BundleResource Include="Resources\icon_twitter%402x.png" />
     <BundleResource Include="Resources\bg%402x.png" />
     <BundleResource Include="Resources\line%402x.png" />
+    <BundleResource Include="Resources\mask_avatar_mini.png" />
+    <BundleResource Include="Resources\mask_avatar_mini%402x.png" />
+    <BundleResource Include="Resources\mask_avatar.png" />
+    <BundleResource Include="Resources\mask_avatar%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\avatar_big.png" />
+    <BundleResource Include="Resources\avatar_big%402x.png" />
+    <BundleResource Include="Resources\avatar%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -148,11 +157,11 @@
     <Compile Include="Info.cs" />
     <Compile Include="ShyBotNavigationController.cs" />
     <Compile Include="TwittsTableSource.cs" />
+    <Compile Include="UIImageViewCornersRounded.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <XamarinComponentReference Include="restsharp">
-      <InstallationInProgress>True</InstallationInProgress>
       <Version>104.1.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
