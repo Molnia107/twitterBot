@@ -24,8 +24,6 @@ namespace TwitterBot
 			maskLayer.BackgroundColor = UIColor.Clear.CGColor;
 			maskLayer.Path = roundedPath.CGPath;
 
-
-
 			//Don't add masks to layers already in the hierarchy!
 			Layer.Mask = maskLayer;
 		}
