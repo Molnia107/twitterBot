@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitterBot", "TwitterBot.csproj", "{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{F428E897-B22E-4ED4-929B-0CE7144AF79C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -25,6 +27,18 @@ Global
 		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhone.Build.0 = Release|iPhone
 		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{5A6BEF5B-C91F-4B17-AA7D-0B3E96C88891}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Release|iPhone.Build.0 = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{F428E897-B22E-4ED4-929B-0CE7144AF79C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = TwitterBot.csproj

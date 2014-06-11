@@ -9,7 +9,6 @@ namespace TwitterBot
 	public class TwittView: UIView, IImageUpdated
 	{
 		UIImageView _backgroundImageView;
-		UIImageViewCornersRounded _userImage;
 		UIImageView _userMaskImageView;
 		UILabel _userNameLabel;
 		UILabel _viaLabel;

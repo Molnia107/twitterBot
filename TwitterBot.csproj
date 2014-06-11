@@ -90,9 +90,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="RestSharp.MonoTouch">
-      <HintPath>Components\restsharp-104.1.0\lib\ios\RestSharp.MonoTouch.dll</HintPath>
-    </Reference>
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="BTProgressHUD">
       <HintPath>Components\btprogresshud-1.10\lib\ios\BTProgressHUD.dll</HintPath>
@@ -148,11 +145,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ShyBot.cs" />
-    <Compile Include="AuthInfo.cs" />
-    <Compile Include="TwitterCommunicator.cs" />
-    <Compile Include="AuthParser.cs" />
-    <Compile Include="TwitterJsonClasses.cs" />
     <Compile Include="TwittTableCell.cs" />
     <Compile Include="TwittTabController.cs" />
     <Compile Include="TwittsGetByTagController.cs" />
@@ -164,19 +156,12 @@
     <Compile Include="Info.cs" />
     <Compile Include="ShyBotNavigationController.cs" />
     <Compile Include="TwittsTableSource.cs" />
-    <Compile Include="UIImageViewCornersRounded.cs" />
     <Compile Include="ViewFactory.cs" />
     <Compile Include="ViewInfo.cs" />
-    <Compile Include="ShyBotRestRequest.cs" />
-    <Compile Include="Interfaces.cs" />
     <Compile Include="Strings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <XamarinComponentReference Include="restsharp">
-      <Version>104.1.0</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
     <XamarinComponentReference Include="btprogresshud">
       <Version>1.10</Version>
       <Visible>False</Visible>
@@ -185,5 +170,11 @@
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />
     <ITunesArtwork Include="iTunesArtwork%402x" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Logic\Logic.csproj">
+      <Project>{F428E897-B22E-4ED4-929B-0CE7144AF79C}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
