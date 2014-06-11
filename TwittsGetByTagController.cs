@@ -118,7 +118,7 @@ namespace TwitterBot
 
 		void NetworkErrorMessage_Clicked(object sender, UIButtonEventArgs args)
 		{
-			ShyBot.TryAgain (this);
+			ShyBot.TryAgain (this,_tag, _twittList);
 		}
 
 		public void Authontificate (string url)

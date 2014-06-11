@@ -11,8 +11,10 @@ namespace TwitterBot
 		{
 			Authontification, 
 			Authorization,
-			Work
+			GetTwitts,
+			GetMoreTwitts
 		}
+
 
 		static eStatus _status = new eStatus();
 
@@ -45,7 +47,8 @@ namespace TwitterBot
 
 		static public void GetTwitts(string tag, IRecepient recepient)
 		{
-			_status = eStatus.Work;
+			_status = eStatus.GetTwitts;
+			tag = tag;
 			if (IsAuthorized) 
 			{
 				communicator.GetTwittsByTag (tag,recepient);
@@ -58,6 +61,7 @@ namespace TwitterBot
 
 		static public void GetMoreTwitts(string tag,IRecepient recepient, List<Twitt> twittList)
 		{
+			_status = eStatus.GetMoreTwitts;
 			if (IsAuthorized) 
 			{
 				communicator.GetTwittsByTag (tag,recepient, twittList.LastOrDefault());
@@ -68,7 +72,7 @@ namespace TwitterBot
 			}
 		}
 
-		static public void TryAgain(IRecepient recepient)
+		static public void TryAgain(IRecepient recepient, string tag, List<Twitt> twittList)
 		{
 			switch (_status) 
 			{
@@ -76,7 +80,11 @@ namespace TwitterBot
 			case(eStatus.Authorization):
 				Authontificate (recepient);
 				break;
-			case(eStatus.Work):
+			case(eStatus.GetTwitts):
+				GetTwitts (tag, recepient);
+				break;
+			case (eStatus.GetMoreTwitts):
+				GetMoreTwitts (tag, recepient, twittList);
 				break;
 			}
 		}
