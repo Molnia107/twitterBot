@@ -167,6 +167,8 @@
     <Compile Include="UIImageViewCornersRounded.cs" />
     <Compile Include="ViewFactory.cs" />
     <Compile Include="ViewInfo.cs" />
+    <Compile Include="ShyBotRestRequest.cs" />
+    <Compile Include="Interfaces.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
