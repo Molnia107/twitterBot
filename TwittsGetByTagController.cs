@@ -104,7 +104,9 @@ namespace TwitterBot
 
 		public void SetNetworkError()
 		{
+
 			BeginInvokeOnMainThread (delegate {
+				_view.HideBTProgressHUD ();
 				var av = new UIAlertView ("Проблемы с интернет",
 					"Произошла ошибка, проверьте наличие интернета",
 					null,
