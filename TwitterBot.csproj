@@ -169,6 +169,7 @@
     <Compile Include="ViewInfo.cs" />
     <Compile Include="ShyBotRestRequest.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="Strings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

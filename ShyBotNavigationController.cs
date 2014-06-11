@@ -17,7 +17,7 @@ namespace TwitterBot
 			PushViewController (_tabBarController,true);
 
 
-			var btn = new UIBarButtonItem ("Инфо", UIBarButtonItemStyle.Plain, 
+			var btn = new UIBarButtonItem (Strings.InfoTabName, UIBarButtonItemStyle.Plain, 
 				(sender, args) => {
 					InfoNavigationBar_ButtonClick ();
 				});

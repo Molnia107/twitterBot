@@ -8,7 +8,7 @@ namespace TwitterBot
 	{
 		InfoView _view;
 		Info _info;
-		NSUrl _callUrl = new NSUrl ("tel:+79310028990");
+		NSUrl _callUrl = new NSUrl (Strings.CallUrl);
 
 		public InfoController ()
 		{
@@ -33,21 +33,21 @@ namespace TwitterBot
 		public void Call()
 		{
 			if (UIApplication.SharedApplication.CanOpenUrl (_callUrl)) {
-				var av = new UIAlertView ("Предупреждение",
-					         "Произвести звонок на номер +7 931 00 28 990?",
-					         null,
-					         "Отмена",
-					         new string[]{ "ОК" });
+				var av = new UIAlertView (Strings.Warning,
+					Strings.CallMessage,
+					null,
+					Strings.CommonButtons.Cancel,
+					new string[]{ Strings.CommonButtons.OK });
 
 				av.Show ();
 				av.Clicked += CallMessage_Clicked;
 			}
 			else
 			{
-				var av = new UIAlertView ("Информация",
-					"Звонок с данного устройства не возможен",
+				var av = new UIAlertView (Strings.Information,
+					Strings.CallNotAvailable,
 					null,
-					"ОК",
+					Strings.CommonButtons.OK,
 					null);
 
 				av.Show ();
@@ -65,13 +65,13 @@ namespace TwitterBot
 
 		public void Email()
 		{
-			var url = new NSUrl("mailto:hello@touchin.ru?subject=mail");
+			var url = new NSUrl(Strings.MailUrl);
 			if (!UIApplication.SharedApplication.OpenUrl (url)) 
 			{
-				var av = new UIAlertView ("Not supported",
-					"Scheme 'mailto:' is not supported on this device",
+				var av = new UIAlertView (Strings.Information,
+					Strings.MailNotAvailable,
 					null,
-					"OK",
+					Strings.CommonButtons.OK,
 					null);
 
 				av.Show ();

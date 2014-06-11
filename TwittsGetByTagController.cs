@@ -107,10 +107,10 @@ namespace TwitterBot
 
 			BeginInvokeOnMainThread (delegate {
 				_view.HideBTProgressHUD ();
-				var av = new UIAlertView ("Проблемы с интернет",
-					"Произошла ошибка, проверьте наличие интернета",
+				var av = new UIAlertView (Strings.NetworkProblems,
+					Strings.NetworkProblemsMessage,
 					null,
-					"Попробовать еще",
+					Strings.TryAgain,
 					null);
 
 				av.Show ();

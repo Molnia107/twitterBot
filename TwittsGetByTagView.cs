@@ -146,7 +146,7 @@ namespace TwitterBot
 			_tableView.TableFooterView.AddSubview(_footerView);
 			//_footerView.Frame = new System.Drawing.RectangleF (0,0,320,50);
 
-			_buttonLoadTwitts.SetTitle ("Показать еще", UIControlState.Normal);
+			_buttonLoadTwitts.SetTitle (Strings.ShowMore, UIControlState.Normal);
 
 			_buttonLoadTwitts.SizeToFit ();
 			_buttonLoadTwitts.TouchUpInside += ButtonLoadTwitts_TouchUpInside;
@@ -163,7 +163,7 @@ namespace TwitterBot
 		public void ShowBTProgressHUD()
 		{
 			BTProgressHUD.Show(); //shows the spinner
-			BTProgressHUD.Show("Загрузка данных"); //show spinner + text
+			BTProgressHUD.Show(Strings.DataInLoading); //show spinner + text
 		}
 
 		public void HideBTProgressHUD()
