@@ -16,7 +16,7 @@ namespace TwitterBot
 		{
 			ContentView.BackgroundColor = UIColor.FromRGB (235, 235, 235);
 
-			_timeLabel = ViewFabric.CreateUILabel ();
+			_timeLabel = ViewFactory.CreateUILabel ();
 			_timeLabel.TextColor = UIColor.FromRGB (159,159,159);
 			_timeLabel.Font = UIFont.SystemFontOfSize (10);
 			ContentView.AddSubview (_timeLabel);

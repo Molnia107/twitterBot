@@ -165,7 +165,7 @@
     <Compile Include="ShyBotNavigationController.cs" />
     <Compile Include="TwittsTableSource.cs" />
     <Compile Include="UIImageViewCornersRounded.cs" />
-    <Compile Include="ViewFabric.cs" />
+    <Compile Include="ViewFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

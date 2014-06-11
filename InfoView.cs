@@ -22,7 +22,7 @@ namespace TwitterBot
 
 		public InfoView (CallDelegate callDelegate, EmailDelegate emailDelegate)
 		{
-			_infoLabel = ViewFabric.CreateUILabel ();
+			_infoLabel = ViewFactory.CreateUILabel ();
 			_infoImage = new UIImageView ();
 			_infoPhoneButton = UIButton.FromType (UIButtonType.Custom);
 			_infoEmailButton = UIButton.FromType (UIButtonType.Custom);

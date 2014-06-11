@@ -25,13 +25,13 @@ namespace TwitterBot
 		public TwittView ()
 		{
 			_backgroundImageView = new UIImageView ();
-			_userNameLabel = ViewFabric.CreateUILabel ();
+			_userNameLabel = ViewFactory.CreateUILabel ();
 			_userMaskImageView = new UIImageView ();
-			_viaLabel = ViewFabric.CreateUILabel ();
-			_twittTextLabel = ViewFabric.CreateUILabel ();
+			_viaLabel = ViewFactory.CreateUILabel ();
+			_twittTextLabel = ViewFactory.CreateUILabel ();
 			_lineImageView = new UIImageView ();
-			_twittDateLabel = ViewFabric.CreateUILabel ();
-			_twittUrlLabel = ViewFabric.CreateUILabel ();
+			_twittDateLabel = ViewFactory.CreateUILabel ();
+			_twittUrlLabel = ViewFactory.CreateUILabel ();
 
 			AddSubview (_backgroundImageView);
 			AddSubview (_userNameLabel);

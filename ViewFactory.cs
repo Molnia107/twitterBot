@@ -3,9 +3,9 @@ using MonoTouch.UIKit;
 
 namespace TwitterBot
 {
-	static public class ViewFabric
+	static public class ViewFactory
 	{
-		static ViewFabric ()
+		static ViewFactory ()
 		{
 
 
