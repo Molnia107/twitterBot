@@ -1,5 +1,6 @@
 ﻿using System;
 using MonoTouch.UIKit;
+using System.Drawing;
 
 namespace TwitterBot
 {
@@ -36,16 +37,32 @@ namespace TwitterBot
 
 			SetViewControllers(_tabs,true);
 //			SelectedIndex = 1;
-			SelectedViewController = tab1;
-
-			Title = "#Twitter";
-
 			ViewControllerSelected += OnSelected;
+			OnSelected(this,new UITabBarSelectionEventArgs(tab1));
+
+			//Title = "#Twitter";
+
+
+		}
+
+		public override void ViewDidLayoutSubviews ()
+		{
+			base.ViewDidLayoutSubviews ();
+			//http://stackoverflow.com/questions/21725010/tabbarcontroller-first-view-is-offset-by-20px
+			var wrapperView = View.Subviews [0].Subviews [0];
+			if (wrapperView.Frame.Y == 20)
+			{
+				var frame = wrapperView.Frame;
+				frame.Y = 0;
+				frame.Height += 20;
+				wrapperView.Frame = frame;
+			}
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
 		}
 
 		public override void ViewWillAppear (bool animated)
