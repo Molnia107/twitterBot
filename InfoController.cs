@@ -8,6 +8,7 @@ namespace TwitterBot
 	{
 		InfoView _view;
 		Info _info;
+		NSUrl _callUrl = new NSUrl ("tel:+79310028990");
 
 		public InfoController ()
 		{
@@ -27,18 +28,38 @@ namespace TwitterBot
 			_view.ShowInfo (_info);
 		}
 
+
+
 		public void Call()
 		{
-			var url = new NSUrl ("tel:+79310028990");
-			if (!UIApplication.SharedApplication.OpenUrl (url)) 
+			if (UIApplication.SharedApplication.CanOpenUrl (_callUrl)) {
+				var av = new UIAlertView ("Предупреждение",
+					         "Произвести звонок на номер +7 931 00 28 990?",
+					         null,
+					         "Отмена",
+					         new string[]{ "ОК" });
+
+				av.Show ();
+				av.Clicked += CallMessage_Clicked;
+			}
+			else
 			{
-				var av = new UIAlertView ("Not supported",
-					"Scheme 'tel:' is not supported on this device",
+				var av = new UIAlertView ("Информация",
+					"Звонок с данного устройства не возможен",
 					null,
-					"OK",
+					"ОК",
 					null);
 
 				av.Show ();
+			}
+
+		}
+
+		void CallMessage_Clicked(object sender, UIButtonEventArgs args)
+		{
+			if (args.ButtonIndex == 1) //OK
+			{
+				UIApplication.SharedApplication.OpenUrl (_callUrl);
 			}
 		}
 

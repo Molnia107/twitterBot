@@ -29,6 +29,7 @@ namespace TwitterBot
 		{
 			BackgroundColor = UIColor.White;
 			_tableView = new UITableView ();
+
 			_tableSource = new TwittsTableSource (TableSource_RowSelected);
 			_buttonLoadTwitts  = UIButton.FromType (UIButtonType.System);
 			_footerView = new UIView ();
@@ -58,6 +59,7 @@ namespace TwitterBot
 
 		void ButtonLoadTwitts_TouchUpInside (object sender, EventArgs ea) 
 		{
+			_buttonLoadTwitts.Enabled = false;
 			_getMoreTwittsDelegate ();
 
 		}
@@ -101,6 +103,7 @@ namespace TwitterBot
 			_getMoreTwittsDelegate = getMoreTwitts;
 			_viewTwittDelegate = viewTwittDelegate;
 			HideBTProgressHUD ();
+			_tableView.TableFooterView.Hidden = false;
 		}
 
 		public void DisplayNewTwitts(List<Twitt> newTwittList)
@@ -116,6 +119,7 @@ namespace TwitterBot
 
 			_tableView.InsertRows(tmpList.ToArray(), UITableViewRowAnimation.None);
 			HideBTProgressHUD ();
+			_buttonLoadTwitts.Enabled = true;
 		}
 
 		public void DisplayAuthWebView(string authUrl, ContinueAuthorizationDelegate continueAuthorization)
@@ -138,6 +142,7 @@ namespace TwitterBot
 		{
 			_footerView.ClipsToBounds = true;
 			_tableView.TableFooterView = new UIView ();
+			_tableView.TableFooterView.Hidden = true;
 			_tableView.TableFooterView.AddSubview(_footerView);
 			//_footerView.Frame = new System.Drawing.RectangleF (0,0,320,50);
 
