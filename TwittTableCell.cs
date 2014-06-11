@@ -27,7 +27,7 @@ namespace TwitterBot
 			DetailTextLabel.TextColor = UIColor.FromRGB (159,159,159);
 
 
-			var maskImg = UIImage.FromFile ("mask_avatar_mini.png").CGImage;
+			var maskImg = UIImage.FromFile (ImagePathes.AvatarMini).CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
 
 			var size = _timeLabel.Frame.Size;
@@ -71,7 +71,7 @@ namespace TwitterBot
 			if (image != null)
 				imageCG = image.CGImage;
 			else
-				imageCG = UIImage.FromFile ("avatar.png").CGImage;
+				imageCG = UIImage.FromFile (ImagePathes.Avatar).CGImage;
 
 			CGImage imgWithMaskCG = imageCG.WithMask (_mask);
 			ImageView.Image = new UIImage (imgWithMaskCG);

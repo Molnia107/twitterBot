@@ -40,7 +40,7 @@ namespace TwitterBot
 			AddSubview (_twittUrlLabel);
 			AddSubview (_userMaskImageView);
 
-			_backgroundImageView.Image = UIImage.FromFile ("bg.png");
+			_backgroundImageView.Image = UIImage.FromFile (ImagePathes.TwittBg);
 
 			_userNameLabel.Font = UIFont.BoldSystemFontOfSize (14);
 			_userNameLabel.TextColor = UIColor.FromRGB (69, 99, 141);
@@ -52,14 +52,14 @@ namespace TwitterBot
 			_twittTextLabel.LineBreakMode = UILineBreakMode.WordWrap;
 			_twittTextLabel.Lines = 0;
 
-			_lineImageView.Image = UIImage.FromFile ("line.png");
+			_lineImageView.Image = UIImage.FromFile (ImagePathes.Line);
 			_lineImageView.SizeToFit ();
 
 			_twittDateLabel.Font = UIFont.SystemFontOfSize (10);
 			_twittDateLabel.TextColor = UIColor.FromRGB (123,123,123);
 
 			_userMaskImageView.Frame = new RectangleF (0, 0, 72, 72);
-			var maskImg = UIImage.FromFile ("mask_avatar.png").CGImage;
+			var maskImg = UIImage.FromFile (ImagePathes.MaskAvatar).CGImage;
 			_mask = CGImage.CreateMask(maskImg.Width, maskImg.Height,maskImg.BitsPerComponent,maskImg.BitsPerPixel, maskImg.BytesPerRow, maskImg.DataProvider, null, true);
 
 		}
@@ -105,7 +105,7 @@ namespace TwitterBot
 			if (image != null)
 				_avatarCG = image.CGImage;
 			else
-				_avatarCG = UIImage.FromFile ("avatar_big.png").CGImage;
+				_avatarCG = UIImage.FromFile (ImagePathes.AvatarBig).CGImage;
 
 
 			CGImage imgWithMaskCG = _avatarCG.WithMask (_mask);

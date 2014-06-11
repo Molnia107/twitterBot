@@ -159,6 +159,7 @@
     <Compile Include="ViewFactory.cs" />
     <Compile Include="ViewInfo.cs" />
     <Compile Include="Strings.cs" />
+    <Compile Include="ImagePathes.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

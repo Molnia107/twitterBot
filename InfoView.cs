@@ -94,22 +94,22 @@ namespace TwitterBot
 			_infoLabel.Font = UIFont.SystemFontOfSize (12);
 			//_infoLabel.SizeToFit();
 
-			var buttonImg = UIImage.FromFile ("button.png");
+			var buttonImg = UIImage.FromFile (ImagePathes.Button);
 			buttonImg = buttonImg.CreateResizableImage(new UIEdgeInsets(8,10,11,32));
 
-			var selectedButtonImg = UIImage.FromFile ("button_pressed.png");
+			var selectedButtonImg = UIImage.FromFile (ImagePathes.ButtonPressed);
 			selectedButtonImg = selectedButtonImg.CreateResizableImage(new UIEdgeInsets(8,10,11,32));
 
 
 			_infoPhoneButton.SetBackgroundImage(buttonImg,UIControlState.Normal);
-			_infoPhoneButton.SetImage(UIImage.FromFile ("icon_phone.png"),UIControlState.Normal);
+			_infoPhoneButton.SetImage(UIImage.FromFile (ImagePathes.IconPhone),UIControlState.Normal);
 			_infoPhoneButton.SetBackgroundImage(selectedButtonImg,UIControlState.Highlighted);
 			_infoPhoneButton.ImageEdgeInsets = new UIEdgeInsets (-7, 0, 0, 0);
 
 			//_infoPhoneButton.SizeToFit ();
 
 			_infoEmailButton.SetBackgroundImage(buttonImg,UIControlState.Normal);
-			_infoEmailButton.SetImage(UIImage.FromFile ("icon_mail.png"),UIControlState.Normal);
+			_infoEmailButton.SetImage(UIImage.FromFile (ImagePathes.IconMail),UIControlState.Normal);
 			_infoEmailButton.SetBackgroundImage(selectedButtonImg,UIControlState.Highlighted);
 			_infoEmailButton.ImageEdgeInsets = new UIEdgeInsets (-7, 0, 0, 0);
 
