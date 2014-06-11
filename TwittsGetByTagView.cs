@@ -19,7 +19,6 @@ namespace TwitterBot
 		GetMoreTwittsDelegate _getMoreTwittsDelegate;
 		ContinueAuthorizationDelegate _continueAthorizationDelegate;
 		ViewTwittDelegate _viewTwittDelegate;
-		int _top,_bottom,_bottomWebView;
 
 
 		public delegate List<Twitt> GetMoreTwittsDelegate ();
@@ -44,19 +43,6 @@ namespace TwitterBot
 			_tableView.Source = _tableSource;
 			//_tableView.ScrollIndicatorInsets = new UIEdgeInsets (0, 0, 0, 0);
 			bool f = _tableView.TableFooterView.AccessibilityScroll (UIAccessibilityScrollDirection.Down);
-
-
-			if (UIDevice.CurrentDevice.SystemVersion.Split ('.') [0] != "6") 
-			{
-				_top = 65;
-				_bottom = 65;
-				_bottomWebView = 145;
-			} 
-			else 
-			{
-				_top = -25;
-			}
-
 
 		}
 
@@ -102,12 +88,13 @@ namespace TwitterBot
 			_tableView.Frame = Bounds;
 			_tableView.ContentOffset = tableOffset;
 
-			_tableView.ContentInset = new UIEdgeInsets (_top, 0, _bottom+40, 0);
-			_tableView.ScrollIndicatorInsets = new UIEdgeInsets (_top, 0, 50, 0);
+
+			_tableView.ContentInset = new UIEdgeInsets (ViewInfo.NavigationBarHeight, 0, ViewInfo.TabBarHeight+50, 0);
+			_tableView.ScrollIndicatorInsets = new UIEdgeInsets (ViewInfo.NavigationBarHeight , 0, ViewInfo.TabBarHeight, 0);
 
 
 			if (_webView != null)
-				_webView.Frame = new RectangleF(0,_top,Bounds.Size.Width,Bounds.Size.Height-_bottomWebView);
+				_webView.Frame = new RectangleF(0,ViewInfo.NavigationBarHeight,Bounds.Size.Width,Bounds.Size.Height-ViewInfo.TabBarHeight);
 
 			_tableView.TableFooterView.Frame = new System.Drawing.RectangleF (_tableView.TableFooterView.Frame.Location,new SizeF(Bounds.Width,50));
 			_footerView.Frame = new RectangleF(new PointF(0,0),_tableView.TableFooterView.Bounds.Size);
@@ -130,8 +117,8 @@ namespace TwitterBot
 			_continueAthorizationDelegate = continueAuthorization;
 			_webView = new UIWebView ();
 			_webView.ShouldStartLoad += WebViewAuth_ShouldStartLoad;
-			//_webView.Frame = UIScreen.MainScreen.Bounds;
-			//AddSubview (_webView);
+			_webView.Frame = UIScreen.MainScreen.Bounds;
+			AddSubview (_webView);
 			_webView.LoadRequest(new NSUrlRequest(new NSUrl(authUrl)));
 		}
 
@@ -159,7 +146,7 @@ namespace TwitterBot
 
 		public void ScrollToTop()
 		{
-			_tableView.ContentOffset = new PointF (0, -1*_top);
+			_tableView.ContentOffset = new PointF (0, -1*ViewInfo.NavigationBarHeight);
 		}
 
 		public void ShowBTProgressHUD()
