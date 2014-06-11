@@ -21,10 +21,9 @@ namespace TwitterBot
 		ViewTwittDelegate _viewTwittDelegate;
 
 
-		public delegate List<Twitt> GetMoreTwittsDelegate ();
+		public delegate void GetMoreTwittsDelegate ();
 		public delegate void ContinueAuthorizationDelegate(string query);
 		public delegate void ViewTwittDelegate(Twitt twitt);
-
 
 		public TwittsGetByTagView ()
 		{
@@ -59,18 +58,10 @@ namespace TwitterBot
 
 		void ButtonLoadTwitts_TouchUpInside (object sender, EventArgs ea) 
 		{
-			var newTwittList = _getMoreTwittsDelegate ();
-			_tableSource.AddNewTwittsToSource(newTwittList);
-			List<NSIndexPath> tmpList = new List<NSIndexPath>(); 
-			var rowsInSection = _tableView.NumberOfRowsInSection (0);
-			for(int i = rowsInSection; i < rowsInSection  + newTwittList.Count; i++) 
-			{ 
-				NSIndexPath tmpIndexPath = NSIndexPath.FromRowSection(i,0); 
-				tmpList.Add(tmpIndexPath);	
-			} 
+			_getMoreTwittsDelegate ();
 
-			_tableView.InsertRows(tmpList.ToArray(), UITableViewRowAnimation.None);
 		}
+			
 
 		public void TableSource_RowSelected (Twitt twitt)
 		{
@@ -109,7 +100,22 @@ namespace TwitterBot
 			_tableView.ReloadData ();
 			_getMoreTwittsDelegate = getMoreTwitts;
 			_viewTwittDelegate = viewTwittDelegate;
+			HideBTProgressHUD ();
+		}
 
+		public void DisplayNewTwitts(List<Twitt> newTwittList)
+		{
+			_tableSource.AddNewTwittsToSource(newTwittList);
+			List<NSIndexPath> tmpList = new List<NSIndexPath>(); 
+			var rowsInSection = _tableView.NumberOfRowsInSection (0);
+			for(int i = rowsInSection; i < rowsInSection  + newTwittList.Count; i++) 
+			{ 
+				NSIndexPath tmpIndexPath = NSIndexPath.FromRowSection(i,0); 
+				tmpList.Add(tmpIndexPath);	
+			} 
+
+			_tableView.InsertRows(tmpList.ToArray(), UITableViewRowAnimation.None);
+			HideBTProgressHUD ();
 		}
 
 		public void DisplayAuthWebView(string authUrl, ContinueAuthorizationDelegate continueAuthorization)
@@ -159,6 +165,10 @@ namespace TwitterBot
 		{
 			BTProgressHUD.Dismiss();
 		}
+
+
+
+
 	}
 }
 

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace TwitterBot
 {
-	public class TwittsGetByTagController : UIViewController
+	public class TwittsGetByTagController : UIViewController, IRecepient
 	{
 		string _tag;
 		TwittsGetByTagView _view;
@@ -29,10 +29,7 @@ namespace TwitterBot
 		*/
 		private void ContinueAuthorization(string query)
 		{
-			ShyBot.Authorize (query);
-			_view.FinishAuthorization ();
-
-			GetTwitts ();
+			ShyBot.Authorize (query, this);
 
 			//else msg
 		}
@@ -40,9 +37,8 @@ namespace TwitterBot
 		void GetTwitts()
 		{
 			_view.ShowBTProgressHUD ();
-			_twittList = ShyBot.GetTwitts (_tag);
-			_view.DisplayTwitts (_twittList, GetMoreTwitts, PushTwittToNavigator);
-			_view.HideBTProgressHUD ();
+			ShyBot.GetTwitts (_tag, this);
+
 		}
 
 		public override void LoadView ()
@@ -60,39 +56,25 @@ namespace TwitterBot
 			_firstTimeView = false;
 		}
 
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
-		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
 			if (!ShyBot.IsAuthorized)
-				ShyBot.Authontificate (ViewAuth);
+				ShyBot.Authontificate (this);
 			else 
 			{
 				GetTwitts ();
 			}
 		}
 
-		public void ViewAuth( string authUrl)
-		{
-			//authorize user
-			_view.DisplayAuthWebView (authUrl, ContinueAuthorization);
 
-		}
 
-		public List<Twitt> GetMoreTwitts()
+		public void GetMoreTwitts()
 		{
 			_view.ShowBTProgressHUD ();
-			var newTwitts = ShyBot.GetMoreTwitts (_tag,_twittList );
-			if(newTwitts.Count > 0)
-				newTwitts.RemoveAt (0);
-			_twittList = _twittList.Concat (newTwitts).ToList();
-			_view.HideBTProgressHUD ();
-			return newTwitts;
+			ShyBot.GetMoreTwitts (_tag,this,_twittList );
 		}
 
 
@@ -101,6 +83,60 @@ namespace TwitterBot
 			if (NavigationController is ShyBotNavigationController) 
 			{
 				(NavigationController as ShyBotNavigationController).TwittTableSource_SelectedRow (twitt);
+			}
+		}
+
+		public void SetTwitts(List<Twitt> newTwittList)
+		{
+			if (_twittList == null) 
+			{
+				_twittList = newTwittList;
+				BeginInvokeOnMainThread(delegate{_view.DisplayTwitts (_twittList, GetMoreTwitts, PushTwittToNavigator);});
+			} 
+			else 
+			{
+				if(newTwittList.Count > 0)
+					newTwittList.RemoveAt (0);
+				_twittList = _twittList.Concat (newTwittList).ToList();
+				BeginInvokeOnMainThread(delegate{_view.DisplayNewTwitts (newTwittList);});
+			}
+		}
+
+		public void SetNetworkError()
+		{
+			BeginInvokeOnMainThread (delegate {
+				var av = new UIAlertView ("Проблемы с интернет",
+					"Произошла ошибка, проверьте наличие интернета",
+					null,
+					"Попробовать еще",
+					null);
+
+				av.Show ();
+				av.Clicked += NetworkErrorMessage_Clicked;
+			});
+		}
+
+		void NetworkErrorMessage_Clicked(object sender, UIButtonEventArgs args)
+		{
+			ShyBot.TryAgain (this);
+		}
+
+		public void Authontificate (string url)
+		{
+			//authorize user
+			BeginInvokeOnMainThread (delegate {
+				_view.DisplayAuthWebView (url, ContinueAuthorization);
+			});
+		}
+
+		public void SetAuthorizationRezult(bool rezult)
+		{
+			if (rezult) 
+			{
+				BeginInvokeOnMainThread (delegate {
+					_view.FinishAuthorization ();
+					GetTwitts ();
+				});
 			}
 		}
 	}
