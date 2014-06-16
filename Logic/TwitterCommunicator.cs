@@ -32,9 +32,10 @@ namespace TwitterBot
 				if (response.Content.Contains ("oauth_token")) 
 				{
 					_authParser.ParseResponse (response.Content);
-					if (response.Request is ShyBotRestRequest && (response.Request as ShyBotRestRequest).Recepient != null) 
+					if (response.Request is ShyBotRestRequest && (response.Request as ShyBotRestRequest).Recepient != null &&
+						(response.Request as ShyBotRestRequest).Recepient is IAuthorizationRecepient) 
 					{
-						(response.Request as ShyBotRestRequest).Recepient.Authontificate ("https://api.twitter.com/oauth/authenticate?oauth_token=" + _authInfo.OauthToken);
+						((response.Request as ShyBotRestRequest).Recepient as IAuthorizationRecepient).Authontificate ("https://api.twitter.com/oauth/authenticate?oauth_token=" + _authInfo.OauthToken);
 					}
 				}
 			}
@@ -48,7 +49,7 @@ namespace TwitterBot
 				{
 					_authParser.ParseResponse (response.Content);
 					IsAuthorized = true;
-					if (response.Request is ShyBotRestRequest && (response.Request as ShyBotRestRequest).Recepient != null) 
+					if (response.Request is ShyBotRestRequest && (response.Request as ShyBotRestRequest).Recepient != null ) 
 					{
 						(response.Request as ShyBotRestRequest).Recepient.SetAuthorizationRezult (IsAuthorized);
 					}
@@ -63,9 +64,10 @@ namespace TwitterBot
 				JsonDeserializer deserializer = new JsonDeserializer ();
 				RootObject obj = deserializer.Deserialize<RootObject> (response);
 
-				if (response.Request is ShyBotRestRequest && (response.Request as ShyBotRestRequest).Recepient != null) 
+				if (response.Request is ShyBotRestRequest && (response.Request as ShyBotRestRequest).Recepient != null &&
+					(response.Request as ShyBotRestRequest).Recepient is ITwittsRecepient) 
 				{
-					(response.Request as ShyBotRestRequest).Recepient.SetTwitts (obj.statuses);
+					((response.Request as ShyBotRestRequest).Recepient as ITwittsRecepient).SetTwitts (obj.statuses);
 				}
 			}
 			//return obj.statuses;

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace TwitterBot
 {
-	public class TwittsGetByTagController : UIViewController, IRecepient
+	public class TwittsGetByTagController : UIViewController, ITwittsRecepient
 	{
 		string _tag;
 		TwittsGetByTagView _view;
@@ -26,17 +26,12 @@ namespace TwitterBot
 			int i = 25;
 
 		}
-		*/
-		private void ContinueAuthorization(string query)
-		{
-			ShyBot.Authorize (query, this);
 
-			//else msg
-		}
+*/		
 
 		void GetTwitts()
 		{
-			_view.ShowBTProgressHUD ();
+			BTProgressHUDProvider.ShowBTProgressHUD ();
 			ShyBot.GetTwitts (_tag, this);
 
 		}
@@ -50,6 +45,9 @@ namespace TwitterBot
 
 		public override void ViewWillAppear (bool animated)
 		{
+			if (_twittList == null)
+				GetTwitts ();
+
 			base.ViewWillAppear (animated);
 			if(_firstTimeView)
 				_view.ScrollToTop ();
@@ -61,19 +59,13 @@ namespace TwitterBot
 		{
 			base.ViewDidLoad ();
 
-			if (!ShyBot.IsAuthorized)
-				ShyBot.Authontificate (this);
-			else 
-			{
-				GetTwitts ();
-			}
 		}
 
 
 
 		public void GetMoreTwitts()
 		{
-			_view.ShowBTProgressHUD ();
+			BTProgressHUDProvider.ShowBTProgressHUD ();
 			ShyBot.GetMoreTwitts (_tag,this,_twittList );
 		}
 
@@ -106,7 +98,7 @@ namespace TwitterBot
 		{
 
 			BeginInvokeOnMainThread (delegate {
-				_view.HideBTProgressHUD ();
+				BTProgressHUDProvider.HideBTProgressHUD ();
 				var av = new UIAlertView (Strings.NetworkProblems,
 					Strings.NetworkProblemsMessage,
 					null,
@@ -123,20 +115,12 @@ namespace TwitterBot
 			ShyBot.TryAgain (this,_tag, _twittList);
 		}
 
-		public void Authontificate (string url)
-		{
-			//authorize user
-			BeginInvokeOnMainThread (delegate {
-				_view.DisplayAuthWebView (url, ContinueAuthorization);
-			});
-		}
-
 		public void SetAuthorizationRezult(bool rezult)
 		{
 			if (rezult) 
 			{
 				BeginInvokeOnMainThread (delegate {
-					_view.FinishAuthorization ();
+					//_view.FinishAuthorization ();
 					GetTwitts ();
 				});
 			}

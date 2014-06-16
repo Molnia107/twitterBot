@@ -35,10 +35,10 @@ namespace TwitterBot
 				tab1, tab2, tab3, tab4
 			};
 
-			SetViewControllers(_tabs,true);
-//			SelectedIndex = 1;
+			//???SetViewControllers(_tabs,true);
+			//			SelectedIndex = 1;
 			ViewControllerSelected += OnSelected;
-			OnSelected(this,new UITabBarSelectionEventArgs(tab1));
+
 
 			//Title = "#Twitter";
 
@@ -49,20 +49,23 @@ namespace TwitterBot
 		{
 			base.ViewDidLayoutSubviews ();
 			//http://stackoverflow.com/questions/21725010/tabbarcontroller-first-view-is-offset-by-20px
-			var wrapperView = View.Subviews [0].Subviews [0];
-			if (wrapperView.Frame.Y == 20)
+			if (View != null && View.Subviews != null && View.Subviews.Length > 0 && View.Subviews [0].Subviews != null && View.Subviews [0].Subviews.Length > 0) 
 			{
-				var frame = wrapperView.Frame;
-				frame.Y = 0;
-				frame.Height += 20;
-				wrapperView.Frame = frame;
+				var wrapperView = View.Subviews [0].Subviews [0];
+				if (wrapperView.Frame.Y == 20) {
+					var frame = wrapperView.Frame;
+					frame.Y = 0;
+					frame.Height += 20;
+					wrapperView.Frame = frame;
+				}
 			}
 		}
 
-		public override void ViewDidLoad ()
+		public override void ViewDidAppear (bool animated)
 		{
-			base.ViewDidLoad ();
-
+			base.ViewDidAppear (animated);
+			if(ViewControllers == null)
+				SetViewControllers(_tabs,true);
 		}
 
 		public override void ViewWillAppear (bool animated)

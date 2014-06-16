@@ -68,19 +68,13 @@ namespace TwitterBot
 		{
 			base.LayoutSubviews ();
 
-
-
 			_backgroundImageView.Frame = Bounds;
-
-			//var size = _userImage.Frame.Size;
-			//_userImage.Frame = new RectangleF (new PointF (30, 100), size);
 
 			var size = _userMaskImageView.Frame.Size;
 			_userMaskImageView.Frame = new RectangleF (new PointF (30, ViewInfo.NavigationBarHeight +15), size);
 
 			size = _userNameLabel.Frame.Size;
 			_userNameLabel.Frame = new RectangleF( new PointF(30 + _userMaskImageView.Frame.Width + 20, ViewInfo.NavigationBarHeight + 15 + 30), size);
-
 
 			size = _viaLabel.Frame.Size;
 			_viaLabel.Frame = new RectangleF(new PointF(30 + _userMaskImageView.Frame.Width + 20,_userNameLabel.Frame.Top+_userNameLabel.Frame.Height+10), size);

@@ -160,6 +160,9 @@
     <Compile Include="ViewInfo.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="ImagePathes.cs" />
+    <Compile Include="StartController.cs" />
+    <Compile Include="StartView.cs" />
+    <Compile Include="BTProgressHUDProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

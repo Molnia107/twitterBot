@@ -17,12 +17,10 @@ namespace TwitterBot
 		UIView _footerView;
 		UIButton _buttonLoadTwitts;
 		GetMoreTwittsDelegate _getMoreTwittsDelegate;
-		ContinueAuthorizationDelegate _continueAthorizationDelegate;
 		ViewTwittDelegate _viewTwittDelegate;
 
 
 		public delegate void GetMoreTwittsDelegate ();
-		public delegate void ContinueAuthorizationDelegate(string query);
 		public delegate void ViewTwittDelegate(Twitt twitt);
 
 		public TwittsGetByTagView ()
@@ -41,21 +39,10 @@ namespace TwitterBot
 				_tableView.SeparatorInset = new UIEdgeInsets (0, 0, 0, 0);
 
 			_tableView.Source = _tableSource;
-			//_tableView.ScrollIndicatorInsets = new UIEdgeInsets (0, 0, 0, 0);
-			bool f = _tableView.TableFooterView.AccessibilityScroll (UIAccessibilityScrollDirection.Down);
 
 		}
 
 
-
-		bool WebViewAuth_ShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
-		{
-			if (request.Url.Host == "www.yandex.ru") 
-			{
-				_continueAthorizationDelegate (request.Url.Query);
-			}
-			return true;
-		}
 
 		void ButtonLoadTwitts_TouchUpInside (object sender, EventArgs ea) 
 		{
@@ -86,9 +73,6 @@ namespace TwitterBot
 			_tableView.ScrollIndicatorInsets = new UIEdgeInsets (ViewInfo.NavigationBarHeight , 0, ViewInfo.TabBarHeight, 0);
 
 
-			if (_webView != null)
-				_webView.Frame = new RectangleF(0,ViewInfo.NavigationBarHeight,Bounds.Size.Width,Bounds.Size.Height-ViewInfo.TabBarHeight);
-
 			_tableView.TableFooterView.Frame = new System.Drawing.RectangleF (_tableView.TableFooterView.Frame.Location,new SizeF(Bounds.Width,50));
 			_footerView.Frame = new RectangleF(new PointF(0,0),_tableView.TableFooterView.Bounds.Size);
 			_buttonLoadTwitts.Center = _footerView.Center;
@@ -102,7 +86,7 @@ namespace TwitterBot
 			_tableView.ReloadData ();
 			_getMoreTwittsDelegate = getMoreTwitts;
 			_viewTwittDelegate = viewTwittDelegate;
-			HideBTProgressHUD ();
+			BTProgressHUDProvider.HideBTProgressHUD ();
 			_tableView.TableFooterView.Hidden = false;
 		}
 
@@ -118,25 +102,10 @@ namespace TwitterBot
 			} 
 
 			_tableView.InsertRows(tmpList.ToArray(), UITableViewRowAnimation.None);
-			HideBTProgressHUD ();
+			BTProgressHUDProvider.HideBTProgressHUD ();
 			_buttonLoadTwitts.Enabled = true;
 		}
 
-		public void DisplayAuthWebView(string authUrl, ContinueAuthorizationDelegate continueAuthorization)
-		{
-			_continueAthorizationDelegate = continueAuthorization;
-			_webView = new UIWebView ();
-			_webView.ShouldStartLoad += WebViewAuth_ShouldStartLoad;
-			_webView.Frame = UIScreen.MainScreen.Bounds;
-			AddSubview (_webView);
-			_webView.LoadRequest(new NSUrlRequest(new NSUrl(authUrl)));
-		}
-
-		public void FinishAuthorization()
-		{
-			_webView.RemoveFromSuperview ();
-			_webView = null;
-		}
 
 		public void InitTableViewFooter()
 		{
@@ -144,14 +113,12 @@ namespace TwitterBot
 			_tableView.TableFooterView = new UIView ();
 			_tableView.TableFooterView.Hidden = true;
 			_tableView.TableFooterView.AddSubview(_footerView);
-			//_footerView.Frame = new System.Drawing.RectangleF (0,0,320,50);
 
 			_buttonLoadTwitts.SetTitle (Strings.ShowMore, UIControlState.Normal);
 
 			_buttonLoadTwitts.SizeToFit ();
 			_buttonLoadTwitts.TouchUpInside += ButtonLoadTwitts_TouchUpInside;
 
-			//buttonLoadTwitts.AddTarget (null, new Selector("sender:event:"), UIControlEvent.TouchUpInside);
 			_footerView.AddSubview (_buttonLoadTwitts);
 		}
 
@@ -160,16 +127,7 @@ namespace TwitterBot
 			_tableView.ContentOffset = new PointF (0, -1*ViewInfo.NavigationBarHeight);
 		}
 
-		public void ShowBTProgressHUD()
-		{
-			BTProgressHUD.Show(); //shows the spinner
-			BTProgressHUD.Show(Strings.DataInLoading); //show spinner + text
-		}
 
-		public void HideBTProgressHUD()
-		{
-			BTProgressHUD.Dismiss();
-		}
 
 
 

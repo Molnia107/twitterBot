@@ -5,10 +5,18 @@ namespace TwitterBot
 {
 	public interface IRecepient
 	{
-		void SetTwitts(List<Twitt> twittList);
 		void SetNetworkError ();
-		void Authontificate (string url);
 		void SetAuthorizationRezult (bool rezult);
+	}
+
+	public interface ITwittsRecepient : IRecepient
+	{
+		void SetTwitts(List<Twitt> twittList);
+	}
+
+	public interface IAuthorizationRecepient : IRecepient
+	{
+		void Authontificate (string url);
 	}
 }
 

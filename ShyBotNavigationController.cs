@@ -10,26 +10,22 @@ namespace TwitterBot
 		UITabBarController _tabBarController;
 		InfoController _infoController;
 		TwittController _twittController;
+		StartController _startController;
 
 		public ShyBotNavigationController ()
 		{
+			_startController = new StartController ();
 			_tabBarController = new TwittTabController ();
-			PushViewController (_tabBarController,true);
+			_infoController = new InfoController ();
+			_twittController = new TwittController ();
 
+			PushViewController (_startController, true);
 
-			var btn = new UIBarButtonItem (Strings.InfoTabName, UIBarButtonItemStyle.Plain, 
+			var backButton = new UIBarButtonItem (Strings.InfoTabName, UIBarButtonItemStyle.Plain, 
 				(sender, args) => {
 					InfoNavigationBar_ButtonClick ();
 				});
-
-
-			_tabBarController.NavigationItem.SetRightBarButtonItem(btn,true);
-
-
-			//_navigationController.NavigationBar.Items [0].SetRightBarButtonItem (btn, true);
-
-			_infoController = new InfoController ();
-			_twittController = new TwittController ();
+			_tabBarController.NavigationItem.SetRightBarButtonItem(backButton,true);
 		}
 
 		void InfoNavigationBar_ButtonClick ()
@@ -42,6 +38,12 @@ namespace TwitterBot
 		{
 			_twittController.RefreshTwitt (twitt);
 			PushViewController (_twittController, true);
+		}
+
+		public void StartController_Login()
+		{
+			PushViewController (_tabBarController,true);
+
 		}
 	}
 }
